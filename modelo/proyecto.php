@@ -1,5 +1,4 @@
 <?php
-echo ' llego hasta modelo/proyecto.php';
 include_once 'conexion.php';
 
 class proyecto{
@@ -12,6 +11,13 @@ class proyecto{
         $this->acceso = $db->pdo;
     }
     
+    function listarProyectos($user_id){
+        $sql = "SELECT * FROM proyecto WHERE usuario_id=:id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute([':id'=>$user_id]);
+        $this->objeto = $query->fetchAll();
+        return $this->objeto;
+    }
     function ingresar_proyecto($name_pro){
         $sql = "SELECT * FROM proyecto WHERE nombre=:name_pro";
         $query = $this->acceso->prepare($sql);
@@ -21,5 +27,4 @@ class proyecto{
         echo "Proyecto: ". $objeto->nombre;
     }
 }
-echo ' Sale de modelo/proyecto.php';
 ?>

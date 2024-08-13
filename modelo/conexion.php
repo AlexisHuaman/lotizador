@@ -14,5 +14,5 @@ class conexion{
         $this->pdo = new PDO("mysql:dbname={$this->db}; host={$this->servidor}; port={$this->puerto}; charset={$this->charset}", $this->usuario, $this->contrasena, $this->atributos);
     }
 }
-echo ' Llega hasta modelo/conexion';
+
 ?>
