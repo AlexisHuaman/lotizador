@@ -12,8 +12,9 @@ else{
     $usuario->logearse($user,$pass);
     if(!empty($usuario->objetos)){
         foreach($usuario->objetos as $objeto){
-            $_SESSION['id_usuario'] = $objeto->id_usuario;
-            $_SESSION['nombre_usuario'] = $objeto->nombre_usuario;
+            $_SESSION['id_usuario'] = $objeto->id;
+            $_SESSION['nombre_usuario'] = $objeto->nombres;
+            $_SESSION['rol'] = $objeto->rol;
         }
         header('location: ../vista/inicio.php');
     }
