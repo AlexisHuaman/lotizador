@@ -18,13 +18,19 @@ class proyecto{
         $this->objeto = $query->fetchAll();
         return $this->objeto;
     }
-    function ingresar_proyecto($name_pro){
-        $sql = "SELECT * FROM proyecto WHERE nombre=:name_pro";
+    function detalle_proyecto($id_pro){
+        $sql = "SELECT * FROM proyecto WHERE id=:id";
         $query = $this->acceso->prepare($sql);
-        $query->execute([':name_pro'=>$name_pro]);
+        $query->execute([':id'=>$id_pro]);
+        $this->objeto = $query->fetch();
+        return $this->objeto;
+    }
+    function listarTransacciones($id_pro){
+        $sql = "SELECT * FROM transaccion WHERE proyecto_id=:id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute([':id'=>$$id_pro]);
         $this->objeto = $query->fetchAll();
         return $this->objeto;
-        echo "Proyecto: ". $objeto->nombre;
     }
 }
 ?>
