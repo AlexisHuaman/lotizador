@@ -1,7 +1,7 @@
 <?php
 // Obtener el ID del proyecto desde la URL
 $proyectoId = $_GET['id'];
-$_SESSION['id_proyecto'] = $proyectoId;
+//$_SESSION['id_proyecto'] = $proyectoId;
 // Usar el ID para cargar la información del proyecto desde la base de datos
 // ...
 

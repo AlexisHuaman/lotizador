@@ -23,6 +23,5 @@ $(document).ready(function(){
         )
     }
     let id_proyecto = $("#id-proyect").attr("data-id")
-    console.log(id_proyecto)
     detalles_proyecto(id_proyecto)
 })
