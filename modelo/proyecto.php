@@ -26,7 +26,7 @@ class proyecto{
         return $this->objeto;
     }
     function listarTransacciones($id_pro){
-        $sql = "SELECT * FROM transaccion WHERE proyecto_id=:id";
+        $sql = "SELECT * FROM transaccion JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id WHERE proyecto_id=:id ";
         $query = $this->acceso->prepare($sql);
         $query->execute([':id'=>$id_pro]);
         $this->objeto = $query->fetchAll();
