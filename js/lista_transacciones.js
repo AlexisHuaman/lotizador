@@ -16,17 +16,38 @@ $(document).ready(function () {
                 let t_tipo = '';
                 // Iterar sobre el arreglo de transacciones
                 data.forEach(transaccion => {
-                    transaccionesHTML += `
-                    <div class="transaccion">
-                        <h3>Transacción ID: ${transaccion.id}</h3>
-                        <p><strong>Presupuesto:</strong> ${transaccion.presupuesto}</p>
-                        <p><strong>Fecha:</strong> ${transaccion.fecha}</p>
-                        <p><strong>Descripción:</strong> ${transaccion.descripcion}</p>
-                        <p><strong>Tipo:</strong> ${transaccion.nombre}</p>
-                    </div>
-                    <hr>
-                `;
+                    t_id += `<li>${transaccion.id}</li>`;
+                    t_presupuesto += `<li>${transaccion.presupuesto}</li>`;
+                    t_fecha += `<li>${transaccion.fecha}</li>`;
+                    t_descripcion += `<li>${transaccion.descripcion}</li>`;
+                    t_tipo += `<li>${transaccion.nombre}</li>`;
                 });
+                
+                let t_template = "";
+                t_template +=`
+                <div class="t_transaccion">
+                
+                <div class="transaccion">
+                    <p class="det">Numero: ${t_id}</p>
+                </div>
+                <div class="transaccion">
+                    
+                    <p class="det">Tipo: ${t_tipo}</p>
+                   
+                </div>
+                <div class="transaccion">
+                    <p class="det">Monto: ${t_presupuesto}</p>
+                </div>
+                <div class="transaccion">
+                    <p class="det">Fecha: ${t_fecha}</p>
+                </div>
+                <div class="transaccion">
+                    <p class="det">Descripcion: ${t_descripcion}</p>
+                </div>
+
+                </div>
+                `;
+                $("#detalle_transaccion").html(t_template);
 
                 // Insertar la lista en el elemento con id 't_lista'
                 $('#t_id').html(`<ul>${t_id}</ul>`);

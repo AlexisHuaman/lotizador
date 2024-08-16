@@ -13,7 +13,10 @@ $proyectoId = $_GET['id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Proyecto</title>
+    
 </head>
 
 <body>
@@ -27,14 +30,16 @@ $proyectoId = $_GET['id'];
     <p id="p_presupuesto_actual"></p>
 
     <h2>------------Transacciones-------------------</h2>
-    <div class="transaccion"></div>
-    <!--
-    <p id="t_id"></p>
+    <!--<div class="transaccion"></div>-->
+
+    <div id="detalle_proyecto"></div>
+    <div id="detalle_transaccion"></div>
+    <!--<p id="t_id"></p>
     <p id="t_presupuesto"></p>
     <p id="t_fecha"></p>
     <p id="t_descripcion"></p>
-    <p id="t_tipo"></p>
-     Mostrar más detalles del proyecto aquí -->
+    <p id="t_tipo"></p>-->
+    Mostrar más detalles del proyecto aquí
     <script src="../js/jquery.min.js"></script>
     <script src="../js/datos_proyecto.js"></script>
     <script src="../js/lista_transacciones.js"></script>

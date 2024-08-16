@@ -1,3 +1,4 @@
+
 #nombre_pro {
     padding: 10px 20px;
     font-size: 16px;
@@ -10,4 +11,38 @@
   
   #nombre_pro:hover {
     background-color: #0056b3;
+  }
+  .card{
+    background-color: #22ffcb;
+    display: flex; /*sirve para poner los elementos seguidos uno del otro*/
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 30px;
+    box-shadow: 0px 10px 10px 2px #ececec;
+  }
+
+  .t_transaccion{
+    display: flex;
+    flex-direction: row;
+  }
+  .t_transaccion .transaccion{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+  }
+  @media screen  {
+    
+  }
+  .card img{
+    width: 100px; /*ancho*/
+    height: 100px; /*altura*/
+    border-radius: 50%; /*darle forma a las esquinas*/
+    object-fit: cover;
+    object-position: bottom;
+  }
+  .card .description{
+    font-size: 35px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
