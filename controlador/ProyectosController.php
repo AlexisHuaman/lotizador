@@ -22,10 +22,3 @@ if ($funcion == "lista_transacciones") {
     $proyecto->listarTransacciones($id);
     echo json_encode($proyecto->objeto);
 }
-
-if ($funcion == "editar_pre") {
-    $id = $_POST["id"];
-    $proyecto = new proyecto();
-    $proyecto->editar_pre($id);
-    echo json_encode($proyecto->objeto);
-}
