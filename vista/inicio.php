@@ -1,8 +1,6 @@
 <?php
 session_start();
 if (!empty($_SESSION['id_usuario'])) {
-    echo $_SESSION["rol"];
-
 ?>
 
     <!DOCTYPE html>
@@ -20,21 +18,25 @@ if (!empty($_SESSION['id_usuario'])) {
     <body>
         <div class="containerproyectos">
             <h1>Mis proyectos</h1>
-            <div id="proyectosContainer" class="btn btn-primary text-center"></div>
+            <div id="proyectosContainer" class="btn btn-primary text-center">
+                <script src="../js/jquery.min.js"></script>
+                <script src="../js/gestion_proyectos.js"></script> 
+            </div>
         </div>
-        <!-- <form action="../controlador/conectar_proyecto.php" method="post">
-        <div class="input-div">
-            <h5>Inserte nombre del proyecto</h5>
-            <input type="text" name="name_pro" class="input">
-        </div>
-        <input type="submit" class="btn" value="ingresar">
-        </form> -->
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/gestion_proyectos.js"></script>     
 
-    <ul class = "navbar-nav ml-auto">
-        <a href="../controlador/logout.php">Cerrar Sesion</a>
-    </ul>
+        <ul class="navbar-nav2">
+            <li>
+                <a href="../controlador/logout.php" class="btn2 btn-logout">Cerrar Sesión</a>
+            </li>
+        </ul>
+
+        <div id="usuarioContainer" class="usuario_datos">
+            <h3>Usuario</h3>
+            <div id="usuarioContainer" class="">
+                <script src="../js/jquery.min.js"></script>
+                <script src="../js/usuario.js"></script> 
+            </div>
+        </div>
     </body>
 
     </html>

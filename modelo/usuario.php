@@ -2,20 +2,33 @@
 include_once 'conexion.php';
 class usuario{
     var $objetos;
-    public $acceso = NULL;
+    public $acceso = null;
     public function __construct()
     {
         $db = new conexion();
         $this->acceso = $db->pdo;
     }
-
-    function logearse($correo,$contrasena){
-        $sql = "SELECT u.*, tr.nombre as rol FROM usuario as u inner join tipo_rol as tr on u.rol_id=tr.id where u.correo=:i_correo and u.contrasena=:i_contrasena";
+    function logearse($correo, $pass){
+        $sql = "SELECT * FROM usuario where correo=:correo and contrasena=:pass";
         $query = $this->acceso->prepare($sql);
-        $query->execute(array(':i_correo'=>$correo,':i_contrasena'=>$contrasena));
+        $query->execute(array(':correo'=>$correo, ':pass'=>$pass));
         $this->objetos = $query->fetchAll();
         return $this->objetos;
     }
+
+    function obtener_datos($id){
+        $sql = "SELECT * FROM usuario where correo=:correo and contrasena=:pass";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $this->objetos = $query->fetchAll();
+        return $this->objetos;
+    }
+
+    function editar($id_usuario,$telefono,$residencia,$correo,$sexo,$adicional){
+        $sql="UPDATE usuario SET telefono_us=:telefono, residencia_us=:residencia, correo_us=:correo, sexo_us=:sexo, adicional_us=:adicional where id_usuario=:id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id_usuario,'telefono'=>$telefono, 'residencia'=>$residencia, 'correo'=>$correo, 'sexo'=>$sexo, 'adicional'=>$adicional));
+
+    }
 }
-echo 'Llega hasta modelo/usuario';
 ?>

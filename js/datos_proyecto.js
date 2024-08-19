@@ -10,31 +10,23 @@ $(document).ready(function () {
         console.log(data);
 
         let i_nombre = "";
-        let i_presupuesto_inicial = "";
-        let i_presupuesto_actual = "";
+        let i_presupuesto = "";
 
         i_nombre += `${data.nombre}`;
-        i_presupuesto_inicial += `${data.presupuesto_inicial}`;
-        i_presupuesto_actual += `${data.presupuesto_actual}`;
+        i_presupuesto += `${data.presupuesto}`;
         let template = "";
         template += `
         <div class="card">
-            <img
-                src="https://img.europapress.es/fotoweb/fotonoticia_20160321145313_800.jpg"
-                alt="piloto"
-            />
+            
             <p class="description">
                 Nombre:${i_nombre} <br/>
-                presupuesto inicial:${i_presupuesto_inicial}<br/>
-                presupuesto  total:${i_presupuesto_actual}
-                
+                presupuesto:${i_presupuesto}
             </p>
         </div>
         `;
         $("#detalle_proyecto").html(template);
         $("#p_nombre").html(i_nombre);
-        $("#p_presupuesto_inicial").html(i_presupuesto_inicial);
-        $("#p_presupuesto_actual").html(i_presupuesto_actual);
+        $("#p_presupuesto").html(i_presupuesto);
       }
     );
   }

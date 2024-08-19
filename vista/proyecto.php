@@ -16,29 +16,75 @@ $proyectoId = $_GET['id'];
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/style.css">
     <title>Proyecto</title>
-    
+
 </head>
 
 <body>
-    <h1>Detalles del Proyecto</h1>
-    <h1 id="p_nombre"></h1>
     <div id="id-proyect" data-id="<?php echo $proyectoId ?>"></div>
-    <h2>------------Presupuesto-------------------</h2>
-    <p>Presupuesto inicial:</p>
-    <p id="p_presupuesto_inicial"></p>
-    <p>Presupuesto actual:</p>
-    <p id="p_presupuesto_actual"></p>
 
-    <h2>------------Transacciones-------------------</h2>
+
     <!--<div class="transaccion"></div>-->
-
+    
     <div id="detalle_proyecto"></div>
-    <div id="detalle_transaccion"></div>
+    <h2>------------Transacciones-------------------</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody id="detalle_transaccion">
+                <!-- Los datos se insertarán aquí -->
+            </tbody>
+        </table>
+    </div>
     <!--<p id="t_id"></p>
     <p id="t_presupuesto"></p>
     <p id="t_fecha"></p>
     <p id="t_descripcion"></p>
     <p id="t_tipo"></p>-->
+
+
+    <form id="form-transaccion" class="form-horizontal">
+        <div class="form-group row">
+            <label for="t_presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
+            <div class="col-sm-10">
+                <input type="number" step="0.01" id="t_presupuesto" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="t_fecha" class="col-sm-2 col-form-label">Fecha</label>
+            <div class="col-sm-10">
+                <input type="text" id="t_fecha" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="t_descripcion" class="col-sm-2 col-form-label">Descripción</label>
+            <div class="col-sm-10">
+                <input type="text" id="t_descripcion" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="t_tipo" class="col-sm-2 col-form-label">Tipo de transacción</label>
+            <div class="col-sm-10">
+                <input type="number" id="t_tipo" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10 float-right">
+                <button type="submit" class="btn btn-block btn-outline-success">Insertar</button>
+            </div>
+        </div>
+    </form>
     Mostrar más detalles del proyecto aquí
     <script src="../js/jquery.min.js"></script>
     <script src="../js/datos_proyecto.js"></script>
