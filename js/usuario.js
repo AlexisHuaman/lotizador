@@ -2,7 +2,7 @@ $(document).ready(function(){
     var funcion = '';
     var id_usuario = $('#id_usuario').val();
     var edit=false;
-    //console.log("ID Usuario: ", id_usuario);
+    console.log("ID Usuario: ", id_usuario);
     //console.log("ID Usuario: ", id_usuario.nombre_us);
     
     buscar_usuario(id_usuario);
@@ -12,43 +12,23 @@ $(document).ready(function(){
         $.post('../controlador/UsuarioController.php',{dato, funcion}, (response) =>{          
             console.log(response);
 
-            let nombre = '';
-            let apellido = '';
-            let edad = '';
-            let dni = '';
-            //let tipo = '';
-            let telefono = '';
-            let residencia = '';
+            let nombres = '';
             let correo = '';
-            let sexo = '';
-            let adicional = '';
+            let telefono = '';
 
             const usuario = JSON.parse(response);
 
-            nombre += `${usuario.nombre}`;
-            apellido += `${usuario.apellido}`;
-            edad += `${usuario.edad}`;
-            dni += `${usuario.dni}`;
-            //tipo += `${usuario.tipo}`;
-            telefono += `${usuario.telefono}`;
-            residencia += `${usuario.residencia}`;
-            correo += `${usuario.correo}`;
-            sexo += `${usuario.sexo}`;
-            adicional += `${usuario.adicional}`;
+            nombres += `${usuario.u_nombre}`;
+            correo += `${usuario.u_correo}`;
+            telefono += `${usuario.u_telefono}`;
 
-            $('#nombre_us').html(nombre);
-            $('#apellido_us').html(apellido);
-            $('#edad_us').html(edad);
-            $('#dni_us').html(dni);
-            $('#telefono_us').html(telefono);
-            $('#residencia_us').html(residencia);
+            $('#nombre_us').html(nombres);
             $('#correo_us').html(correo);
-            $('#sexo_us').html(sexo);
-            $('#adicional_us').html(adicional);
+            $('#telefono_us').html(telefono);
         })
     }
 
-    $(document).on('click','.edit',(e)=>{
+    $(document).on('click','.edit_btn',(e)=>{
         funcion='capturar_datos';
         edit=true;
         $.post('../controlador/UsuarioController.php',{funcion,id_usuario},(response)=>{

@@ -16,10 +16,10 @@ class usuario{
         return $this->objetos;
     }
 
-    function obtener_datos($id){
-        $sql = "SELECT * FROM usuario where correo=:correo and contrasena=:pass";
+    function obtener_datos($id_user){
+        $sql = "SELECT * FROM usuario where id=:id_user";
         $query = $this->acceso->prepare($sql);
-        $query->execute(array(':id'=>$id));
+        $query->execute(array(':id_user'=>$id_user));
         $this->objetos = $query->fetchAll();
         return $this->objetos;
     }

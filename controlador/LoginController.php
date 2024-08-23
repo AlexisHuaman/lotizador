@@ -14,10 +14,9 @@ else{
         foreach($usuario->objetos as $objeto){
             $_SESSION['id_usuario'] = $objeto->id;
             $_SESSION['nombre_usuario'] = $objeto->nombres;
-            $_SESSION['rol'] = $objeto->rol;
+            $_SESSION['rol'] = $objeto->rol_id;
         }
         header('location: ../vista/inicio.php');
     }
 }
-echo 'Llega hasta controlador/longincotroller';
 ?>
