@@ -1,0 +1,114 @@
+/* Estilos generales */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Asegura un buen espacio entre el logo y el formulario */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 900px;
+}
+
+/* Estilo para la imagen del logo */
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px; /* Añade espacio entre el logo y el formulario */
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+/* Estilo para el formulario de login */
+.contenido-login {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Estilo para los inputs */
+.input-div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%; /* Ajusta el tamaño al contenedor padre */
+    max-width: 400px; /* Limita el ancho máximo */
+}
+
+.i {
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.input-div .div {
+    position: center;
+    width: 100%;
+}
+
+.input-div .input {
+    width: 80%;
+    padding: 12px 10px 12px 40px;
+    border: 2px solid #d9d9d9;
+    border-radius: 5px;
+    background: #f2f2f2;
+    font-size: 1rem;
+    color: #333;
+}
+
+.input-div .input::placeholder {
+    color: #999;
+}
+
+/* Botón de inicio de sesión */
+.btn {
+    width: 100%;
+    max-width: 400px; /* Limita el ancho máximo */
+    background-color: #007bff;
+    border: none;
+    padding: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
