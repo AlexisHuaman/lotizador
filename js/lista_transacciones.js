@@ -1,5 +1,6 @@
 $(document).ready(function () {
   console.log("hola transaccion");
+  //var aux_presupuesto=0;
 
   // Obtén el ID del proyecto desde el atributo data-id
   let id_proyecto = $("#id-proyect").attr("data-id");
@@ -16,6 +17,7 @@ $(document).ready(function () {
           console.log(data);
           // Iterar sobre el arreglo de transacciones
           let t_template = "";
+          aux_presupuesto = 0;
           data.forEach((t, index) => {
             t_template += `
                 <tr>                
@@ -25,11 +27,12 @@ $(document).ready(function () {
                     <td>${t.fecha}</td>
                     <td>${t.descripcion}</td>
                 </tr>
-          `;
+            `;
+            aux_presupuesto += t.presupuesto;
           });
 
           $("#detalle_transaccion").html(t_template);
-
+          //presupuesto(id_proyecto, aux_presupuesto);
         } catch (e) {
           console.error("Error al parsear JSON:", e);
         }
@@ -38,6 +41,11 @@ $(document).ready(function () {
   }
   // Llama a la función pasar el ID del proyecto
   listarTransacciones(id_proyecto);
+
+  function detalles_proyecto(id) {
+    let funcion = "detalles_pro";
+    $.post("../controlador/ProyectosController.php", { funcion, id });
+  }
 
   //   crear una transaccion
   $("#form-transaccion").submit((e) => {

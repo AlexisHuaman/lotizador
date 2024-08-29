@@ -15,6 +15,7 @@ $proyectoId = $_GET['id'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style_proyecto.css">
     <title>Proyecto</title>
 
 </head>
@@ -23,10 +24,11 @@ $proyectoId = $_GET['id'];
     <div id="id-proyect" data-id="<?php echo $proyectoId ?>"></div>
 
 
-    <!--<div class="transaccion"></div>-->
-    
-    <div id="detalle_proyecto"></div>
-    <h2>------------Transacciones-------------------</h2>
+    <!--<div class="transaccion"></div>
+
+    <div id="detalle_proyecto"></div>-->
+    <h1 id="p_nombre">nombre_us</h1>
+    <h1 id="presupuesto_transiciones">presupuesto final</h1>
     <div class="table-container">
         <table>
             <thead>
@@ -43,12 +45,6 @@ $proyectoId = $_GET['id'];
             </tbody>
         </table>
     </div>
-    <!--<p id="t_id"></p>
-    <p id="t_presupuesto"></p>
-    <p id="t_fecha"></p>
-    <p id="t_descripcion"></p>
-    <p id="t_tipo"></p>-->
-    <h1 id="presupuesto_transiciones">presupuesto final</h1>
 
     <form id="form-transaccion" class="form-horizontal">
         <div class="form-group row">

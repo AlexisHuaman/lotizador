@@ -30,5 +30,6 @@ $(document).ready(function () {
     }
     // Llama a la función pasar el ID del proyecto
     listarTransacciones(id_proyecto);
-    
+    presupuesto(id_proyecto, aux_presupuesto);
+    console.error("presupuesto:", aux_presupuesto);
   });

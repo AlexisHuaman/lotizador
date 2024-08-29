@@ -32,5 +32,10 @@ class proyecto{
         $this->objeto = $query->fetchAll();
         return $this->objeto;
     }
+    function presupuesto($id_pro, $p_presupuesto){
+        $sql = "UPDATE proyecto SET presupuesto=:p_presupuesto WHERE id=:id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id_pro,':p_presupuesto'=>$p_presupuesto));
+    }
 }
 ?>
