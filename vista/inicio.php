@@ -32,32 +32,51 @@ if (!empty($_SESSION['id_usuario']))
         </ul>
 
         <div class="usuario_datos">
-        <input type="hidden" id="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
-        <h3>Técnico</h3>
+    <input type="hidden" id="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
+    <h3>Técnico</h3>
 
-        <!-- Tabla para mostrar los datos del usuario -->
-        <table class="tabla_usuario">
-            <div class="usuario_imagen">
-                <img id="imagen_us" src="../imagenes/icono.png" alt="Imagen del usuario">
-            </div>
-            <tr>
-                <th>Nombre</th>
-                <td id="nombre_us"></td>
-            </tr>
-            <tr>
-                <th>Correo</th>
-                <td id="correo_us"></td>
-            </tr>
-            <tr>
-                <th>Teléfono</th>
-                <td id="telefono_us"></td>
-            </tr>
-        </table>
-        
-        <div class="buttons">
-            <button class="edit_btn" id="edit_btn">Editar</button>
-            <button class="save_btn" id="save_btn">Guardarxxxxxxxxxxxxxxxxxxx</button>
+    <!-- Tabla para mostrar los datos del usuario -->
+    <table class="tabla_usuario">
+        <div class="usuario_imagen">
+            <img id="imagen_us" src="../imagenes/icono.png" alt="Imagen del usuario">
         </div>
+        <tr>
+            <th>Nombre</th>
+            <td id="nombre_us"></td>
+        </tr>
+        <tr>
+            <th>Correo</th>
+            <td id="correo_us"></td>
+        </tr>
+        <tr>
+            <th>Teléfono</th>
+            <td id="telefono_us"></td>
+        </tr>
+    </table>
+
+    <div class="buttons">
+        <button class="edit_btn" id="edit_btn">Editar</button>
+    </div>
+
+    <!-- Formulario de edición, inicialmente oculto -->
+    <div id="editFormContainer" style="display: none;">
+        <form id="editForm">
+            <div class="form-group">
+                <label for="edit_nombre">Nombre:</label>
+                <input type="text" id="edit_nombre" name="edit_nombre">
+            </div>
+            <div class="form-group">
+                <label for="edit_correo">Correo:</label>
+                <input type="email" id="edit_correo" name="edit_correo">
+            </div>
+            <div class="form-group">
+                <label for="edit_telefono">Teléfono:</label>
+                <input type="text" id="edit_telefono" name="edit_telefono">
+            </div>
+            <button type="submit" class="save_btn" id="save_btn">Guardar</button>
+        </form>
+    </div>
+</div>
 
         <div id="usuarioContainer">
             <script src="../js/usuario.js"></script> 
