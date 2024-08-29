@@ -89,11 +89,7 @@ $(document).ready(function(){
             if (edit == true) {
                 // Obtén los valores de los campos del formulario
                 let telefono = $('#telefono').val();
-                let residencia = $('#residencia').val();
-                let correo = $('#correo').val();
-                let sexo = $('#sexo').val();
-                let adicional = $('#adicional').val();
-    
+                let correo = $('#correo').val();    
                 // Define la función que se enviará al controlador
                 let funcion = 'editar_usuario';
     

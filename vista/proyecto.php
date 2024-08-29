@@ -48,7 +48,7 @@ $proyectoId = $_GET['id'];
     <p id="t_fecha"></p>
     <p id="t_descripcion"></p>
     <p id="t_tipo"></p>-->
-
+    <h1 id="presupuesto_transiciones">presupuesto final</h1>
 
     <form id="form-transaccion" class="form-horizontal">
         <div class="form-group row">
@@ -89,6 +89,7 @@ $proyectoId = $_GET['id'];
     <script src="../js/jquery.min.js"></script>
     <script src="../js/datos_proyecto.js"></script>
     <script src="../js/lista_transacciones.js"></script>
+    <script src="../js/presupuesto.js"></script>
 </body>
 
 </html>
