@@ -1,6 +1,6 @@
 $(document).ready(function () {
   console.log("hola transaccion");
-  //var aux_presupuesto=0;
+  var aux_presupuesto=0;
 
   // Obtén el ID del proyecto desde el atributo data-id
   let id_proyecto = $("#id-proyect").attr("data-id");
@@ -17,21 +17,35 @@ $(document).ready(function () {
           console.log(data);
           // Iterar sobre el arreglo de transacciones
           let t_template = "";
-          aux_presupuesto = 0;
           data.forEach((t, index) => {
             t_template += `
                 <tr>                
                     <td>${index + 1}</td>
-                    <td>${t.tipo_transaccion_id}</td>
+                    <td>${t.nombre}</td>
                     <td>S/${Number(t.presupuesto).toFixed(2)}</td>
                     <td>${t.fecha}</td>
                     <td>${t.descripcion}</td>
                 </tr>
             `;
-            aux_presupuesto += t.presupuesto;
+
+            switch(t.tipo_transaccion_id){
+              case 1:
+                aux_presupuesto += t.presupuesto;
+                break;
+              case 2:
+                aux_presupuesto -= t.presupuesto;
+                break;
+              case 3:
+                aux_presupuesto += t.presupuesto;
+                break;
+            }
+            
+          
           });
 
           $("#detalle_transaccion").html(t_template);
+          $("#presupuesto_transiciones").html(aux_presupuesto);
+
           //presupuesto(id_proyecto, aux_presupuesto);
         } catch (e) {
           console.error("Error al parsear JSON:", e);
@@ -41,7 +55,7 @@ $(document).ready(function () {
   }
   // Llama a la función pasar el ID del proyecto
   listarTransacciones(id_proyecto);
-
+  
   function detalles_proyecto(id) {
     let funcion = "detalles_pro";
     $.post("../controlador/ProyectosController.php", { funcion, id });

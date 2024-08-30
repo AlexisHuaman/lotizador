@@ -20,7 +20,7 @@ $(document).ready(function () {
                 aux_presupuesto += t.presupuesto;
             });
   
-            $("#presupuesto_transiciones").html(aux_presupuesto);
+            
   
           } catch (e) {
             console.error("Error al parsear JSON:", e);
