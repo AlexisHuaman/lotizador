@@ -1,0 +1,76 @@
+/* Contenedor del filtro */
+.filtro {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Asegura que los elementos estén en una fila en la clase .row */
+.filtro .row {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    flex-wrap: nowrap; /* Evita que los elementos se ajusten a nuevas líneas */
+    gap: 15px; /* Espacio entre columnas */
+}
+
+/* Estilos de los campos de entrada */
+.filtro .form-control {
+    width: 100%; /* Asegura que el input ocupe todo el espacio de la columna */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.filtro .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilos de los botones */
+.filtro .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.filtro .btn-dark {
+    background-color: #343a40;
+    border: none;
+    color: #fff;
+}
+
+.filtro .btn-dark:hover {
+    background-color: #23272b;
+}
+
+.filtro .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+}
+
+.filtro .btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .filtro .row {
+        flex-direction: column;
+    }
+
+    .filtro .col, .filtro .col-auto {
+        width: 100%;
+    }
+
+    .filtro .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
