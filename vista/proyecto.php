@@ -82,9 +82,8 @@ if (!empty($_SESSION['id_usuario'])) {
             </div>
         </div>
         -->
-
         <div class="filtro">
-            <form action="descargar_reporte.php" method="post" accept-charset="utf-8">
+            <form action="descargar_reporte.php?id=<?php echo $proyectoId ?>" method="post" accept-charset="utf-8">
                 <div class="row align-items-center">
                     <div class="col">
                         <input type="date" name="fecha_inicio" class="form-control" placeholder="Fecha inicio">

@@ -1,6 +1,6 @@
 $(document).ready(function () {
   console.log("hola transaccion");
-  var aux_presupuesto=0;
+  var aux_presupuesto = 0;
 
   // Obtén el ID del proyecto desde el atributo data-id
   let id_proyecto = $("#id-proyect").attr("data-id");
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 </tr>
             `;
 
-            switch(t.tipo_transaccion_id){
+            switch (t.tipo_transaccion_id) {
               case 1:
                 aux_presupuesto += t.presupuesto;
                 break;
@@ -39,11 +39,11 @@ $(document).ready(function () {
                 aux_presupuesto += t.presupuesto;
                 break;
             }
-            
-          
           });
 
           $("#detalle_transaccion").html(t_template);
+
+          aux_presupuesto = parseFloat(aux_presupuesto.toFixed(2));
           $("#presupuesto_transiciones").html(aux_presupuesto);
 
           //presupuesto(id_proyecto, aux_presupuesto);
@@ -55,7 +55,7 @@ $(document).ready(function () {
   }
   // Llama a la función pasar el ID del proyecto
   listarTransacciones(id_proyecto);
-  
+
   function detalles_proyecto(id) {
     let funcion = "detalles_pro";
     $.post("../controlador/ProyectosController.php", { funcion, id });
