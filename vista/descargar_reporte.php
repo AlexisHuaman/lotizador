@@ -9,16 +9,16 @@ if (!empty($_SESSION['id_usuario'])) {
     // Verifica si el parámetro 'id' está presente en la URL
     if (isset($_GET['id']) && !empty($_GET['id'])) {
         $proyectoId = $_GET['id'];
-        $categoria = $_GET['category'];
+        //$categoria = $_GET['category'];
 
         $proyecto = new proyecto();
-        $proyecto->listarTransacciones($proyectoId);
-        $transacciones = $proyecto->objeto;
         $proyecto->detalle_proyecto($proyectoId);
         $detalle_proyecto = $proyecto->objeto;
 
         $aux_numero = 1;
-
+        $transacciones = json_decode(
+            $_POST["tabla_transacciones"]
+        );
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF();
 
@@ -37,68 +37,88 @@ if (!empty($_SESSION['id_usuario'])) {
         $pdf->Cell(0, 10, "Nombre del Proyecto: $detalle_proyecto->nombre", 0, 1);
         $pdf->Ln(5);
 
-        // Presupuesto del proyecto
+        $Saldo_actual = 0;
+        $Ganancia = 0;
+        $Ventas = 0;
+        $Inversison_inicial = 0;
+        $Gastos = 0;
+
+        /* Presupuesto del proyecto
         $pdf->SetFont('helvetica', '', 12);
         $pdf->Cell(0, 10, "Presupuesto del Proyecto: $1500", 0, 1);
-        $pdf->Ln(10);
+        $pdf->Ln(10);*/
 
         // Tabla de transacciones
-        $pdf->SetFont('helvetica', 'B', 12);
+
+
+
+        $indice = 0;
+        $pdf->SetFont('helvetica', '', 12);
+        foreach ($transacciones as $indx => $transaccion) {
+
+
+            switch ($transaccion->tipo_transaccion_id) {
+                case 1:
+                    $Saldo_actual += $transaccion->presupuesto;
+                    $Inversison_inicial += $transaccion->presupuesto;
+                    break;
+                case 2:
+                    $Saldo_actual -= $transaccion->presupuesto;
+                    $Ganancia -= $transaccion->presupuesto;
+                    $Gastos += $transaccion->presupuesto;
+                    break;
+                case 3:
+                    $Saldo_actual += $transaccion->presupuesto;
+                    $Ventas += $transaccion->presupuesto;
+                    $Ganancia += $transaccion->presupuesto;
+                    break;
+            }
+        }
+        $pdf->Cell(0, 10, "Inversión Dispuesta: $" . number_format($Inversison_inicial, 2), 0, 1);
+        $pdf->Cell(0, 10, "Saldo Actual: $" . number_format($Saldo_actual, 2), 0, 1);
+        $pdf->Cell(0, 10, "Ingresos: $" . number_format($Ventas, 2), 0, 1);
+        $pdf->Cell(0, 10, "Gastos: $" . number_format($Gastos, 2), 0, 1);
+        $pdf->Cell(0, 10, "Ganancia/Perdida: $" . number_format($Ganancia, 2), 0, 1);
+        $pdf->SetFont('helvetica', 'B', 14);
+        $pdf->Cell(0, 10, "Resumen de Transacciones", 0, 1);
+        $pdf->SetFont('helvetica', '', 12);
         $pdf->Cell(20, 10, 'Número', 1);
         $pdf->Cell(40, 10, 'Tipo', 1);
         $pdf->Cell(30, 10, 'Monto', 1);
         $pdf->Cell(30, 10, 'Fecha', 1);
         $pdf->Cell(70, 10, 'Descripción', 1);
         $pdf->Ln();
-
-        $pdf->SetFont('helvetica', 'B', 12);
-        $indice = 0;
         foreach ($transacciones as $indx => $transaccion) {
-            if ($categoria !== "0") {
-                $filter_transaccion;
-                switch ($categoria) {
-                    case "1":
-                        # code...
-                        $filter_transaccion = $transaccion->tipo_transaccion_id === 1 ? $transaccion : null;
 
+            $indice++;
+            $pdf->Cell(20, 10, $indice, 1);
+            $pdf->Cell(40, 10, $transaccion->nombre, 1);
+            $pdf->Cell(30, 10, '$' . $transaccion->presupuesto, 1);
+            $pdf->Cell(30, 10, $transaccion->fecha, 1);
+            $pdf->Cell(70, 10, $transaccion->descripcion, 1);
 
-                        break;
-                    case "2":
-                        # code...
-                        $filter_transaccion = $transaccion->tipo_transaccion_id === 2 ? $transaccion : null;
-
-
-                        break;
-                    case "3":
-                        # code...
-                        $filter_transaccion = $transaccion->tipo_transaccion_id === 3 ? $transaccion : null;
-
-
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
-                if ($filter_transaccion !== null) {
-                    $indice++;
-                    $pdf->Cell(20, 10, $indice, 1);
-                    $pdf->Cell(40, 10, $filter_transaccion->nombre, 1);
-                    $pdf->Cell(30, 10, '$' . $filter_transaccion->presupuesto, 1);
-                    $pdf->Cell(30, 10, $filter_transaccion->fecha, 1);
-                    $pdf->Cell(70, 10, $filter_transaccion->descripcion, 1);
-                    $pdf->Ln();
-                }
-            } else {
-                $indice++;
-                $pdf->Cell(20, 10, $indice, 1);
-                $pdf->Cell(40, 10, $transaccion->nombre, 1);
-                $pdf->Cell(30, 10, '$' . $transaccion->presupuesto, 1);
-                $pdf->Cell(30, 10, $transaccion->fecha, 1);
-                $pdf->Cell(70, 10, $transaccion->descripcion, 1);
-                $pdf->Ln();
+            switch ($transaccion->tipo_transaccion_id) {
+                case 1:
+                    $Saldo_actual += $transaccion->presupuesto;
+                    $Inversison_inicial += $transaccion->presupuesto;
+                    break;
+                case 2:
+                    $Saldo_actual -= $transaccion->presupuesto;
+                    $Ganancia -= $transaccion->presupuesto;
+                    $Gastos += $transaccion->presupuesto;
+                    break;
+                case 3:
+                    $Saldo_actual += $transaccion->presupuesto;
+                    $Ganancia += $transaccion->presupuesto;
+                    break;
             }
+
+
+            $pdf->Ln();
         }
+
+        $pdf->Ln(10);
+
 
         // Muestra el PDF en el navegador o guarda el archivo
         $pdf->Output('informe_proyecto.pdf', 'I'); // 'I' para mostrar en el navegador, 'D' para descargar
