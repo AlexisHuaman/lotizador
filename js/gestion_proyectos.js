@@ -1,5 +1,6 @@
 $(document).ready(function () {
   console.log("hola inicio");
+
   function listarProyectos() {
     let funcion = "buscar_proyectos_by_user";
     $.post(
@@ -8,27 +9,47 @@ $(document).ready(function () {
       (response) => {
         let data = JSON.parse(response);
         console.log(data);
-        $("#proyectosContainer").empty();
-        let nombre_pro = "";
-        data.forEach((proyecto) => {
-          let button = $("<button></button>")
-            .text(proyecto.nombre) // Establece el texto del botón con el nombre del proyecto
-            .attr("data-id", proyecto.id) // Establece un atributo data-id con el ID del proyecto
-            .addClass("btn btn-primary proyecto-boton"); // Añadir clases para dar estilo al botón
 
-          // Agregar el botón al contenedor en el DOM
-          $("#proyectosContainer").append(button);
+        // Limpiar el contenedor
+        $("#proyectosContainer").empty();
+
+        // Crear el elemento <select>
+        let select = $("<select></select>")
+          .attr("id", "proyectosSelect") // Añadir un id para el select
+          .addClass("form-control"); // Añadir clases para el estilo del select
+
+        // Crear la opción por defecto
+        select.append(
+          $("<option></option>")
+            .text("Seleccione un proyecto")
+            .attr("value", "")
+        );
+
+        // Crear opciones para cada proyecto
+        data.forEach((proyecto) => {
+          let option = $("<option></option>")
+            .text(proyecto.nombre) // Establece el texto de la opción con el nombre del proyecto
+            .attr("value", proyecto.id); // Establece el valor de la opción con el ID del proyecto
+
+          select.append(option); // Añadir la opción al select
         });
 
-        $("#proyectosContainer").on("click", ".proyecto-boton", function () {
-          // Obtener el ID del proyecto desde el atributo data-id del botón
-          let proyectoId = $(this).attr("data-id");
+        // Agregar el select al contenedor en el DOM
+        $("#proyectosContainer").append(select);
 
-          // Redirigir a la vista del proyecto con el ID correspondiente
-          window.location.href = `../vista/proyecto.php?id=${proyectoId}`;
+        // Manejar el cambio de selección
+        $("#proyectosSelect").on("change", function () {
+          // Obtener el ID del proyecto seleccionado
+          let proyectoId = $(this).val();
+
+          if (proyectoId) {
+            // Redirigir a la vista del proyecto con el ID correspondiente
+            window.location.href = `../vista/proyecto.php?id=${proyectoId}`;
+          }
         });
       }
     );
   }
+
   listarProyectos();
 });

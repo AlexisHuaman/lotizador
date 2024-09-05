@@ -92,19 +92,24 @@ if (!empty($_SESSION['id_usuario'])) {
                     <div class="col">
                         <input type="date" name="fecha_fin" class="form-control" placeholder="Fecha fin">
                     </div>
+
                     <div class="col">
-                        <button class="btn btn-danger mb-2" id="filtrar-reporte">Filtrar</button>
+                        <button type="button" class="btn btn-danger mb-2" id="filtrar-reporte">Filtrar</button>
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-danger mb-2" id="descargar-reporte">Descargar reporte</button>
+                        <button type="button" class="btn mb-2 bg-blue-500 hover:bg-blue-700" id="reset">Resetear</button>
                     </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn mb-2 bg-green-500 hover:bg-blue-700" id="descargar-reporte">Descargar</button>
+                    </div>
+
 
                     <input type="hidden" name="tabla_transacciones" id="tabla-transacciones" value="">
 
                 </div>
             </form>
         </div>
-
 
 
         <script>
@@ -158,7 +163,7 @@ if (!empty($_SESSION['id_usuario'])) {
         </div>
 
 
-
+        <!-- Insertar transaccion -->
         <form id="form-transaccion" class="form-horizontal">
             <div class="form-row">
                 <div class="form-group col">

@@ -4,6 +4,7 @@ $(document).ready(function () {
   let currentPage = 1;
   let itemsPerPage = parseInt($("#itemsPerPage").val());
   var transacciones;
+  var filterTransacciones;
 
   // Obtén el ID del proyecto desde el atributo data-id
   let id_proyecto = $("#id-proyect").attr("data-id");
@@ -19,8 +20,8 @@ $(document).ready(function () {
         fecha_fin: fechaFin,
       },
       success: function (data) {
-        transacciones = data;
-        renderTable(transacciones);
+        filterTransacciones = data;
+        renderTable(filterTransacciones);
       },
     });
   }
@@ -64,8 +65,6 @@ $(document).ready(function () {
     renderPagination(data);
   }
 
-  function filtro(data) {}
-
   function renderPagination(data) {
     let totalPages = Math.ceil(data.length / itemsPerPage);
     console.log(totalPages);
@@ -97,6 +96,21 @@ $(document).ready(function () {
         </li>
     `);
   }
+
+  $("#reset").click(function () {
+    filterTransacciones = transacciones;
+    renderTable(filterTransacciones);
+    $("input[name='fecha_inicio']").val("");
+    $("input[name='fecha_fin']").val("");
+  });
+
+  $("#filtrar-reporte").click(function () {
+    let fechaInicio = $("input[name='fecha_inicio']").val();
+    let fechaFin = $("input[name='fecha_fin']").val();
+    console.log(fechaFin);
+    loadTransactions(fechaInicio, fechaFin);
+  });
+
   $("#descargar-reporte").click(function (event) {
     // Capturar el contenido de la tabla
     // Pasar el contenido al campo oculto
@@ -149,6 +163,7 @@ $(document).ready(function () {
         try {
           let data = JSON.parse(response);
           transacciones = data;
+          filterTransacciones = data;
           console.log(data);
           // Inicializar la tabla
           renderTable(data);

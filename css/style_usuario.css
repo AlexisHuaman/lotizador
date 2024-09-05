@@ -1,38 +1,36 @@
-/* Contenedor de datos del usuario */
-/* Contenedor de datos del usuario */
-.usuario_datos {
-    width: 100%;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f0f8ff; /* Celeste claro */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Asegúrate de que todo el CSS esté contenido en el archivo style_usuario.css */
+
+body {
     font-family: Arial, sans-serif;
-    text-align: center; /* Centramos el contenido */
+    background-color: #f4f4f4;
+    margin: 0;
 }
 
-/* Espacio para la imagen del usuario */
-.usuario_imagen {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px; /* Espacio debajo de la imagen */
-    border-radius: 50%; /* Hacer la imagen redonda */
-    overflow: hidden; /* Ocultar el desbordamiento para que la imagen sea circular */
-    border: 3px solid #007acc; /* Borde alrededor de la imagen */
+.usuario_datos {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-/* Ajustar la imagen */
-.usuario_imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ajustar la imagen dentro del espacio circular */
+h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Tabla para mostrar los datos del usuario como formulario editable */
 .tabla_usuario {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10px; /* Bordes redondeados en la tabla */
+    overflow: hidden; /* Asegura que el contenido no sobresalga */
+    border: 1px solid #ddd;
 }
 
 .tabla_usuario th, .tabla_usuario td {
@@ -42,76 +40,99 @@
 }
 
 .tabla_usuario th {
-    background-color: #e0f2ff; /* Fondo celeste claro */
-    color: #007acc; /* Texto azul */
     font-weight: bold;
+    color: #555;
 }
 
 .tabla_usuario td {
-    background-color: #ffffff; /* Fondo blanco */
-    color: #333; /* Texto gris oscuro */
+    color: #666;
 }
 
-.tabla_usuario tr:hover td {
-    background-color: #cce7ff; /* Fondo celeste suave al pasar el mouse */
+/* Estilo para los encabezados de fila */
+.tabla_usuario tr {
+    border-top: 1px solid #ddd;
 }
 
-/* Estilo para los campos de entrada en la tabla */
-.tabla_usuario input {
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box; /* Para ajustar el ancho total */
+/* Asegúrate de que el primer tr tenga la línea en la parte inferior */
+.tabla_usuario tr:first-child {
+    border-top: none;
 }
 
-/* Estilo para los botones */
+.tabla_usuario .grupo th {
+    column-count: auto;
+    border-bottom: 2px solid #ddd; /* Línea debajo del encabezado */
+    padding-bottom: 5px;
+}
+
+.tabla_usuario .grupo td {
+    padding-top: 10px; /* Espaciado superior para separar del encabezado */
+}
+
+/* Estilo para la imagen del usuario */
+.usuario_imagen {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.usuario_imagen img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
 .buttons {
+    text-align: center;
     margin-top: 20px;
 }
 
 .edit_btn {
-    padding: 5px 10px;
-    font-size: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.save_btn {
-    padding: 5px 10px;
-    font-size: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.edit_btn {
-    background-color: #007acc; /* Azul oscuro */
+    background-color: #3490dc;
     color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .edit_btn:hover {
-    background-color: #005f99; /* Azul más oscuro al pasar el mouse */
-    transform: scale(1.1);
+    background-color: #2779bd;
+}
+
+#editFormContainer {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .save_btn {
-    background-color: #28a745; /* Verde para guardar */
+    background-color: #38c172;
     color: #fff;
-    display: none; /* Ocultar por defecto */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .save_btn:hover {
-    background-color: #218838; /* Verde más oscuro al pasar el mouse */
-    transform: scale(1.1);
-}
-
-/* Estilo para ocultar el input hidden */
-#id_usuario {
-    display: none;
+    background-color: #2d995b;
 }
