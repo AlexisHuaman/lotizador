@@ -114,7 +114,7 @@ $(document).ready(function () {
   $("#descargar-reporte").click(function (event) {
     // Capturar el contenido de la tabla
     // Pasar el contenido al campo oculto
-    $("#tabla-transacciones").val(JSON.stringify(transacciones));
+    $("#tabla_transacciones").val(JSON.stringify(transacciones));
   });
 
   // Manejo de clic en paginación

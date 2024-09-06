@@ -35,18 +35,6 @@ if (!empty($_SESSION['id_usuario'])) {
                 </div>
             </div>
 
-            <ul class="navbar-nav2">
-                <li>
-                    <a href="../controlador/logout.php" class="btn2 btn-logout">Cerrar Sesión</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav2">
-                <li>
-                    <a href="perfil.php" class="btn2 btn-logout">Perfil</a>
-                </li>
-            </ul>
-
             <div class="usuario_datos">
                 <input type="hidden" id="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
                 <h3>Técnico</h3>

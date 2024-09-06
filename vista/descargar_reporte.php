@@ -49,9 +49,6 @@ if (!empty($_SESSION['id_usuario'])) {
         $pdf->Ln(10);*/
 
         // Tabla de transacciones
-
-
-
         $indice = 0;
         $pdf->SetFont('helvetica', '', 12);
         foreach ($transacciones as $indx => $transaccion) {

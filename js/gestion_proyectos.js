@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  console.log("hola inicio");
-
   function listarProyectos() {
     let funcion = "buscar_proyectos_by_user";
     $.post(
@@ -13,39 +11,38 @@ $(document).ready(function () {
         // Limpiar el contenedor
         $("#proyectosContainer").empty();
 
-        // Crear el elemento <select>
-        let select = $("<select></select>")
-          .attr("id", "proyectosSelect") // Añadir un id para el select
-          .addClass("form-control"); // Añadir clases para el estilo del select
-
-        // Crear la opción por defecto
-        select.append(
-          $("<option></option>")
-            .text("Seleccione un proyecto")
-            .attr("value", "")
-        );
-
-        // Crear opciones para cada proyecto
+        // Crear botones para cada proyecto
         data.forEach((proyecto) => {
-          let option = $("<option></option>")
-            .text(proyecto.nombre) // Establece el texto de la opción con el nombre del proyecto
-            .attr("value", proyecto.id); // Establece el valor de la opción con el ID del proyecto
+          let button = $("<button></button>")
+            .addClass(
+              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg m-2 w-40 h-40 flex flex-col items-center justify-center"
+            ) // Añadir clases TailwindCSS para tamaño y estilo
+            .attr("data-id", proyecto.id); // Añadir un atributo personalizado con el ID del proyecto
 
-          select.append(option); // Añadir la opción al select
-        });
+          // Añadir la imagen (se debe ajustar la lógica para que cada proyecto tenga su imagen correspondiente)
+          let imgSrc = `../imagenes/proyecto${proyecto.id}.jpg`; // Ruta de la imagen (ajústala según tu estructura de carpetas)
+          let img = $("<img>")
+            .attr("src", imgSrc)
+            .addClass("w-24 h-24 mb-2 object-contain"); // Ajustar el tamaño de la imagen
 
-        // Agregar el select al contenedor en el DOM
-        $("#proyectosContainer").append(select);
+          // Añadir el texto (nombre del proyecto)
+          let text = $("<span></span>")
+            .text(proyecto.nombre)
+            .addClass("text-center");
 
-        // Manejar el cambio de selección
-        $("#proyectosSelect").on("change", function () {
-          // Obtener el ID del proyecto seleccionado
-          let proyectoId = $(this).val();
+          // Añadir la imagen y el texto al botón
+          button.append(img);
+          button.append(text);
 
-          if (proyectoId) {
+          // Añadir un evento 'click' al botón
+          button.on("click", function () {
+            let proyectoId = $(this).attr("data-id");
             // Redirigir a la vista del proyecto con el ID correspondiente
             window.location.href = `../vista/proyecto.php?id=${proyectoId}`;
-          }
+          });
+
+          // Añadir el botón al contenedor
+          $("#proyectosContainer").append(button);
         });
       }
     );
