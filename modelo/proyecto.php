@@ -28,7 +28,17 @@ class proyecto
         $this->objeto = $query->fetch();
         return $this->objeto;
     }
+
     function listarTransacciones($id_pro)
+    {
+        $sql = "SELECT * FROM proyecto JOIN transaccion JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id WHERE usuario_id=:id ";
+        $query = $this->acceso->prepare($sql);
+        $query->execute([':id' => $id_pro]);
+        $this->objeto = $query->fetchAll();
+        return $this->objeto;
+    }
+
+    function listarTransaccionesxproyecto($id_pro)
     {
         $sql = "SELECT * FROM transaccion JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id WHERE proyecto_id=:id ";
         $query = $this->acceso->prepare($sql);

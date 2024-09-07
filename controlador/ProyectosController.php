@@ -17,6 +17,13 @@ if ($funcion == "detalles_pro") {
 }
 
 if ($funcion == "lista_transacciones") {
+    $id = $_SESSION['id_usuario'];
+    $proyecto = new proyecto();
+    $proyecto->listarTransacciones($id);
+    echo json_encode($proyecto->objeto);
+}
+
+if ($funcion == "lista_transaccionesxproyecto") {
     $id = $_POST["id"];
     $proyecto = new proyecto();
     $proyecto->listarTransacciones($id);

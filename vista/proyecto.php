@@ -52,7 +52,7 @@ if (!empty($_SESSION['id_usuario'])) {
             <!-- Insertar transaccion -->
             <form id="form-transaccion" class="w-full">
                 <div class="w-full grid grid-cols-1 md:grid-cols-5 gap-4">
-                    <div class="form-group col">
+                    <div class="form-group col">:
                         <label for="t_presupuesto" class="col-form-label">Presupuesto</label>
                         <input type="number" step="0.01" id="t_presupuesto" class="form-control" required>
                     </div>

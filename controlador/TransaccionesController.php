@@ -8,6 +8,19 @@ if (isset($_POST['funcion'])) {
     $funcion = '';
 }
 
+if ($funcion == "categoria_transaccion") {
+    // Asegurarse de que recibimos el tipo de transacción del frontend
+    $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : null;
+    if ($tipo !== null) {
+        $transaccion = new transaccion();
+        // Pasar el tipo de transacción a la función del modelo
+        $transaccion->categoria_transaccion($tipo);
+        echo json_encode($transaccion->objeto);
+    } else {
+        echo json_encode([]);
+    }
+}
+
 if ($funcion == "insertar_transaccion") {
     // Recoger los datos enviados por el formulario
     $presupuesto = $_POST["presupuesto"];
@@ -24,7 +37,4 @@ if ($funcion == "insertar_transaccion") {
 
     // Retornar una respuesta al cliente
     echo json_encode("insertado");
-} else {
-    // Retornar un error si la función no es reconocida
-    echo json_encode("funcion_no_valida");
 }

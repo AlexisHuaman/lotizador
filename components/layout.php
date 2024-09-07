@@ -20,6 +20,8 @@ $relativePath = trim($relativePath, '/'); // Elimina cualquier barra adicional
     <ul class="w-full flex flex-col gap-4 px-8">
         <a href="inicio.php" class="w-full <?php echo $parts[1] == "inicio.php" ? "bg-white text-blue " : "" ?> rounded p-3">Dashboard</a>
 
+        <a href="categorias.php" class="w-full <?php echo $parts[1] == "categorias.php" ? "bg-white text-blue " : "" ?> rounded p-3">Categorias</a>
+
         <a href="mis_proyectos.php" class="w-full <?php echo $parts[1] == "mis_proyectos.php" ? "bg-white text-blue " : "" ?> rounded p-3">Mis proyectos</a>
 
         <a href="perfil.php" class="w-full <?php echo $parts[1] == "perfil.php" ? "bg-white text-blue " : "" ?> rounded p-3">Perfil</a>

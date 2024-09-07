@@ -33,7 +33,7 @@ if (!empty($_SESSION['id_usuario'])) {
         <!-- Tabla para mostrar los datos del usuario -->
         <table class="tabla_usuario">
             <div class="usuario_imagen">
-                <img id="imagen_us" src="../imagenes/icono.png" alt="Imagen del usuario">
+                <img class="center" id="imagen_us" src="../imagenes/icono.png" alt="Imagen del usuario">
             </div>
             <tr class="grupo">
                 <th>Usuario</th>

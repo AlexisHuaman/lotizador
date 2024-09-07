@@ -39,14 +39,14 @@ $(document).ready(function () {
 
     paginatedItems.forEach((t, index) => {
       t_template = `
-              <tr>
-                  <td>${index + 1}</td>
-                  <td>${t.nombre}</td>
-                  <td>S/${Number(t.presupuesto).toFixed(2)}</td>
-                  <td>${t.fecha}</td>
-                  <td>${t.descripcion}</td>
-              </tr>
-          `;
+            <tr>
+                <td>${index + 1}</td>
+                <td>${t.nombre}</td>
+                <td>S/${Number(t.presupuesto).toFixed(2)}</td>
+                <td>${t.fecha}</td>
+                <td>${t.descripcion}</td>
+            </tr>
+        `;
 
       switch (t.tipo_transaccion_id) {
         case 1:
@@ -73,30 +73,28 @@ $(document).ready(function () {
     pagination.empty();
 
     pagination.append(`
-          <li class="page-item ${
-            currentPage === 1 ? "bg-gray-200" : "bg-white"
-          }">
-              <button class="page-link rounded text-sm font-bold px-3 py-2" id="prevPage">Previous</button>
-          </li>
-      `);
+        <li class="page-item ${currentPage === 1 ? "bg-gray-200" : "bg-white"}">
+            <button class="page-link rounded text-sm font-bold px-3 py-2" id="prevPage">Previous</button>
+        </li>
+    `);
 
     for (let i = 1; i <= totalPages; i++) {
       pagination.append(`
-              <li class="page-item ${
-                i === currentPage ? "bg-blue-500 text-white" : "bg-white "
-              }">
-                  <button class="page-link rounded text-sm font-bold px-3 py-2" data-page="${i}">${i}</button>
-              </li>
-          `);
+            <li class="page-item ${
+              i === currentPage ? "bg-blue-500 text-white" : "bg-white "
+            }">
+                <button class="page-link rounded text-sm font-bold px-3 py-2" data-page="${i}">${i}</button>
+            </li>
+        `);
     }
 
     pagination.append(`
-          <li class="page-item ${
-            currentPage === totalPages ? "bg-gray-200" : "bg-white"
-          }">
-              <button class="page-link rounded text-sm font-bold px-3 py-2"  id="nextPage">Next</button>
-          </li>
-      `);
+        <li class="page-item ${
+          currentPage === totalPages ? "bg-gray-200" : "bg-white"
+        }">
+            <button class="page-link rounded text-sm font-bold px-3 py-2"  id="nextPage">Next</button>
+        </li>
+    `);
   }
 
   $("#reset").click(function () {
@@ -167,10 +165,41 @@ $(document).ready(function () {
           transacciones = data;
           filterTransacciones = data;
           console.log(data);
+          // Inicializar la tabla
           renderTable(data);
+
+          // // Iterar sobre el arreglo de transacciones
+          // let t_template = "";
+          // data.forEach((t, index) => {
+          //   t_template += `
+          //       <tr>
+          //           <td>${index + 1}</td>
+          //           <td>${t.nombre}</td>
+          //           <td>S/${Number(t.presupuesto).toFixed(2)}</td>
+          //           <td>${t.fecha}</td>
+          //           <td>${t.descripcion}</td>
+          //       </tr>
+          //   `;////////
+
+          //   switch (t.tipo_transaccion_id) {
+          //     case 1:
+          //       aux_presupuesto += t.presupuesto;
+          //       break;
+          //     case 2:
+          //       aux_presupuesto -= t.presupuesto;
+          //       break;
+          //     case 3:
+          //       aux_presupuesto += t.presupuesto;
+          //       break;
+          //   }
+          // });
+
+          // $("#detalle_transaccion").html(t_template);
 
           aux_presupuesto = parseFloat(aux_presupuesto.toFixed(2));
           $("#presupuesto_transiciones").html(aux_presupuesto);
+
+          //presupuesto(id_proyecto, aux_presupuesto);
         } catch (e) {
           console.error("Error al parsear JSON:", e);
         }
