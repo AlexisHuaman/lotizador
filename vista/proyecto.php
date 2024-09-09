@@ -169,7 +169,7 @@ if (!empty($_SESSION['id_usuario'])) {
         <!-- Formulario de edición, inicialmente oculto -->
         <script src="../js/jquery.min.js"></script>
         <script src="../js/datos_proyecto.js"></script>
-        <script src="../js/lista_transacciones.js"></script>
+        <script src="../js/lista_transaccionesxproyecto.js"></script>
     </body>
 
     </html>

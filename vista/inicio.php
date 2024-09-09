@@ -3,17 +3,9 @@ session_start();
 //$proyectoId = $_GET['id'];
 $proyectoId = $_SESSION['id_usuario'];
 if (!empty($_SESSION['id_usuario'])) {
-    // Obtener el ID del proyecto desde la URL
-
-    //$_SESSION['id_proyecto'] = $proyectoId;
-    // Usar el ID para cargar la información del proyecto desde la base de datos
-    // ...
-    // Mostrar la información del proyecto en la página
 ?>
-
     <!DOCTYPE html>
     <html lang="es">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,15 +14,17 @@ if (!empty($_SESSION['id_usuario'])) {
         <link rel="stylesheet" href="../css/style_proyecto.css">
         <link rel="stylesheet" href="../css/style_filtro.css">
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
         <style>
             /* Puedes agregar estilo para que la transición sea más suave */
             #editFormContainer {
                 display: none;
                 margin-top: 20px;
             }
-        </style>
-        <script src="https://cdn.tailwindcss.com"></script>
+        </style> 
+        
     </head>
 
     <body>
@@ -85,6 +79,9 @@ if (!empty($_SESSION['id_usuario'])) {
                 });
             </script>
 
+            <canvas id="transaccionChart" width="400" height="200"></canvas>
+
+
             <div id="lista_transacciones" class="w-full mt-8">
                 <div class="row mb-3">
                     <div class="flex gap-3">
@@ -131,6 +128,7 @@ if (!empty($_SESSION['id_usuario'])) {
 
         <!-- Formulario de edición, inicialmente oculto -->
         <script src="../js/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../js/lista_transacciones.js"></script>
     </body>
 
@@ -138,7 +136,6 @@ if (!empty($_SESSION['id_usuario'])) {
 
 <?php
 } else {
-
     header('location: ../vista/index.php');
 }
 ?>

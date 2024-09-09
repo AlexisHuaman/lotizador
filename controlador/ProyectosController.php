@@ -26,6 +26,6 @@ if ($funcion == "lista_transacciones") {
 if ($funcion == "lista_transaccionesxproyecto") {
     $id = $_POST["id"];
     $proyecto = new proyecto();
-    $proyecto->listarTransacciones($id);
+    $proyecto->listarTransaccionesxproyecto($id);
     echo json_encode($proyecto->objeto);
 }

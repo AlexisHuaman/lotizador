@@ -1,17 +1,9 @@
 <?php
 session_start();
 if (!empty($_SESSION['id_usuario'])) {
-    $current_path = $_SERVER['REQUEST_URI'];
-
-    $base_path = '/apibilletera/vista/';
-
-    $parts = explode($base_path, $current_path);
-
 ?>
-
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +31,6 @@ if (!empty($_SESSION['id_usuario'])) {
                 </script>
                 <script src="../js/gestion_proyectos.js"></script>
             </div>
-
-
         </div>
     </body>
 

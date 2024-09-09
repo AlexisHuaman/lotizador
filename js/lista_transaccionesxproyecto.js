@@ -6,6 +6,12 @@ $(document).ready(function () {
   var transacciones;
   var filterTransacciones;
 
+  var Saldo = 0;
+  var Ganancia = 0;
+  var Ventas = 0;
+  var Inversisones = 0;
+  var Gastos = 0;
+
   // Obtén el ID del proyecto desde el atributo data-id
   let id_proyecto = $("#id-proyect").attr("data-id");
 
@@ -24,6 +30,48 @@ $(document).ready(function () {
         renderTable(filterTransacciones);
       },
     });
+  }
+
+  let transaccionChart = null;
+
+  function renderChart(data) {
+      let labels = [];
+      let presupuestos = [];
+
+      data.forEach((t, index) => {
+          labels.push(t.nombre); // Los nombres serán las etiquetas del gráfico
+          presupuestos.push(Number(t.presupuesto).toFixed(2)); // Los presupuestos serán los valores de las barras
+      });
+
+      // Si ya hay un gráfico, destrúyelo para evitar la superposición
+      if (transaccionChart) {
+          transaccionChart.destroy();
+      }
+
+      // Obtener el contexto del canvas
+      let ctx = document.getElementById('transaccionChart').getContext('2d');
+
+      // Crear el gráfico de barras
+      transaccionChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Presupuesto',
+                  data: presupuestos,
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de las barras
+                  borderColor: 'rgba(75, 192, 192, 1)', // Color del borde de las barras
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true // Comienza el eje y en 0
+                  }
+              }
+          }
+      });
   }
 
   function renderTable(data) {
@@ -50,13 +98,20 @@ $(document).ready(function () {
 
       switch (t.tipo_transaccion_id) {
         case 1:
-          aux_presupuesto += t.presupuesto;
+          Saldo += t.presupuesto;
+          Inversisones += t.presupuesto;
           break;
+
         case 2:
-          aux_presupuesto -= t.presupuesto;
+          Saldo -= t.presupuesto;
+          Ganancia -= t.presupuesto;
+          Gastos += t.presupuesto;
           break;
+
         case 3:
-          aux_presupuesto += t.presupuesto;
+          Saldo += t.presupuesto;
+          Ventas += t.presupuesto;
+          Ganancia += t.presupuesto;
           break;
       }
       $("#detalle_transaccion").append(t_template);
@@ -154,7 +209,7 @@ $(document).ready(function () {
   });
 
   function listarTransacciones(id) {
-    let funcion = "lista_transacciones";
+    let funcion = "lista_transaccionesxproyecto";
     $.post(
       "../controlador/ProyectosController.php",
       { funcion, id },

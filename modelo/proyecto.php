@@ -29,23 +29,52 @@ class proyecto
         return $this->objeto;
     }
 
-    function listarTransacciones($id_pro)
+    function listarTransacciones($id_usuario)
     {
-        $sql = "SELECT * FROM proyecto JOIN transaccion JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id WHERE usuario_id=:id ";
+        $sql = "SELECT 
+                    proyecto.id,
+                    proyecto.nombre,
+                    usuario_id,
+                    transaccion.id AS transaccion_id, 
+                    transaccion.presupuesto, 
+                    transaccion.fecha, 
+                    transaccion.descripcion, 
+                    transaccion.proyecto_id, 
+                    transaccion.tipo_transaccion_id, 
+                    tipo_transaccion.nombre
+                FROM proyecto 
+                JOIN transaccion ON  proyecto.id = transaccion.proyecto_id
+                JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
+                WHERE usuario_id=:id
+                ORDER BY transaccion.id ASC";
         $query = $this->acceso->prepare($sql);
-        $query->execute([':id' => $id_pro]);
+        $query->execute([':id' => $id_usuario]);
         $this->objeto = $query->fetchAll();
         return $this->objeto;
     }
 
     function listarTransaccionesxproyecto($id_pro)
     {
-        $sql = "SELECT * FROM transaccion JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id WHERE proyecto_id=:id ";
+        $sql = "SELECT 
+                    transaccion.id AS transaccion_id, 
+                    transaccion.presupuesto, 
+                    transaccion.fecha, 
+                    transaccion.descripcion, 
+                    transaccion.proyecto_id, 
+                    transaccion.tipo_transaccion_id, 
+                    tipo_transaccion.nombre
+                FROM transaccion 
+                JOIN tipo_transaccion 
+                ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
+                WHERE transaccion.proyecto_id = :id
+                ORDER BY transaccion.id ASC";
+                
         $query = $this->acceso->prepare($sql);
         $query->execute([':id' => $id_pro]);
         $this->objeto = $query->fetchAll();
         return $this->objeto;
     }
+
     function presupuesto($id_pro, $p_presupuesto)
     {
         $sql = "UPDATE proyecto SET presupuesto=:p_presupuesto WHERE id=:id";
