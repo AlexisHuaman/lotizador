@@ -32,47 +32,87 @@ $(document).ready(function () {
     });
   }
 
-  // Inicializa el gráfico como una variable global
-  let transaccionChart = null;
-
-  function renderChart(data) {
-      let labels = [];
-      let presupuestos = [];
-
-      data.forEach((t, index) => {
-          labels.push(t.nombre); // Los nombres serán las etiquetas del gráfico
-          presupuestos.push(Number(t.presupuesto).toFixed(2)); // Los presupuestos serán los valores de las barras
-      });
-
-      // Si ya hay un gráfico, destrúyelo para evitar la superposición
-      if (transaccionChart) {
-          transaccionChart.destroy();
+  function renderCharts(data) {
+    let proyectosData = {}; // Objeto para almacenar los datos por proyecto
+    // Agrupar las transacciones por proyecto
+    data.forEach((t) => {
+      if (!proyectosData[t.proyecto_id]) {
+        proyectosData[t.proyecto_id] = {
+          nombre: t.p_nombre,
+          inversionTotal: 0,
+          gastoTotal: 0,
+          ventaTotal: 0,
+        };
       }
 
-      // Obtener el contexto del canvas
-      let ctx = document.getElementById('transaccionChart').getContext('2d');
+      // Dependiendo del tipo de transacción, sumar al total correspondiente
+      switch (t.tipo_transaccion_id) {
+        case 1: // Inversión
+          proyectosData[t.proyecto_id].inversionTotal += Number(t.presupuesto);
+          break;
+        case 2: // Gasto
+          proyectosData[t.proyecto_id].gastoTotal += Number(t.presupuesto);
+          break;
+        case 3: // Venta
+          proyectosData[t.proyecto_id].ventaTotal += Number(t.presupuesto);
+          break;
+      }
+    });
+    console.log(proyectosData);
 
-      // Crear el gráfico de barras
-      transaccionChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: 'Presupuesto',
-                  data: presupuestos,
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de las barras
-                  borderColor: 'rgba(75, 192, 192, 1)', // Color del borde de las barras
-                  borderWidth: 1
-              }]
+    // Limpiar el contenedor de gráficos antes de renderizar
+    $("#chart-container").empty();
+
+    // Recorrer proyectosData y crear un gráfico por cada proyecto
+    for (let proyecto_id in proyectosData) {
+      let proyecto = proyectosData[proyecto_id];
+
+      // Crear un canvas dinámico para el gráfico de este proyecto
+      let canvasId = `chart-${proyecto_id}`;
+      $("#chart-container").append(`
+        <div style="margin-bottom: 20px;">
+          <h3>${proyecto.nombre}</h3>
+          <canvas id="${canvasId}" width="400" height="400"></canvas>
+        </div>
+      `);
+
+      // Crear el gráfico circular para este proyecto
+      let ctx = document.getElementById(canvasId).getContext("2d");
+      new Chart(ctx, {
+        type: "doughnut", // Gráfico circular
+        data: {
+          labels: ["Inversión", "Gasto", "Venta"], // Etiquetas del gráfico
+          datasets: [
+            {
+              data: [
+                proyecto.inversionTotal.toFixed(2),
+                proyecto.gastoTotal.toFixed(2),
+                proyecto.ventaTotal.toFixed(2),
+              ], // Totales de inversión, gasto y venta
+              backgroundColor: [
+                "rgba(75, 192, 192, 0.2)", // Color de inversión
+                "rgba(255, 99, 132, 0.2)", // Color de gasto
+                "rgba(54, 162, 235, 0.2)", // Color de venta
+              ],
+              borderColor: [
+                "rgba(75, 192, 192, 1)",
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top", // Posición de la leyenda
+            },
           },
-          options: {
-              scales: {
-                  y: {
-                      beginAtZero: true // Comienza el eje y en 0
-                  }
-              }
-          }
+        },
       });
+    }
   }
 
   function renderTable(data) {
@@ -97,29 +137,29 @@ $(document).ready(function () {
               </tr>
           `;
 
-          switch (t.tipo_transaccion_id) {
-            case 1:
-              Saldo += t.presupuesto;
-              Inversisones += t.presupuesto;
-              break;
-    
-            case 2:
-              Saldo -= t.presupuesto;
-              Ganancia -= t.presupuesto;
-              Gastos += t.presupuesto;
-              break;
-    
-            case 3:
-              Saldo += t.presupuesto;
-              Ventas += t.presupuesto;
-              Ganancia += t.presupuesto;
-              break;
-          }
+      switch (t.tipo_transaccion_id) {
+        case 1:
+          Saldo += t.presupuesto;
+          Inversisones += t.presupuesto;
+          break;
+
+        case 2:
+          Saldo -= t.presupuesto;
+          Ganancia -= t.presupuesto;
+          Gastos += t.presupuesto;
+          break;
+
+        case 3:
+          Saldo += t.presupuesto;
+          Ventas += t.presupuesto;
+          Ganancia += t.presupuesto;
+          break;
+      }
 
       $("#detalle_transaccion").append(t_template);
     });
-    renderChart(paginatedItems);
     renderPagination(data);
+    renderCharts(data);
   }
 
   function renderPagination(data) {

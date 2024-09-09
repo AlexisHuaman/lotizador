@@ -33,45 +33,137 @@ $(document).ready(function () {
   }
 
   let transaccionChart = null;
+  let transaccionPastel = null;
 
   function renderChart(data) {
-      let labels = [];
-      let presupuestos = [];
+    let labels = [];
+    let presupuestos_inversion = [];
+    let presupuestos_gasto = [];
+    let presupuestos_venta = [];
 
-      data.forEach((t, index) => {
-          labels.push(t.nombre); // Los nombres serán las etiquetas del gráfico
-          presupuestos.push(Number(t.presupuesto).toFixed(2)); // Los presupuestos serán los valores de las barras
-      });
+    let inversionTotal = 0;
+    let gastoTotal = 0;
+    let ventaTotal = 0;
 
-      // Si ya hay un gráfico, destrúyelo para evitar la superposición
-      if (transaccionChart) {
-          transaccionChart.destroy();
+    data.forEach((t) => {
+      labels.push(t.nombre); // Los nombres serán las etiquetas del gráfico
+
+      // Inicializamos los valores de presupuestos en 0 para los nombres
+      presupuestos_inversion.push(0);
+      presupuestos_gasto.push(0);
+      presupuestos_venta.push(0);
+
+      // Dependiendo del tipo de transacción, agregamos el presupuesto correspondiente
+      switch (t.tipo_transaccion_id) {
+        case 1: // Inversión
+          presupuestos_inversion[labels.length - 1] = Number(
+            t.presupuesto
+          ).toFixed(2);
+          inversionTotal += Number(t.presupuesto);
+          break;
+        case 2: // Gasto
+          presupuestos_gasto[labels.length - 1] = Number(t.presupuesto).toFixed(
+            2
+          );
+          gastoTotal += Number(t.presupuesto);
+          break;
+        case 3: // Venta
+          presupuestos_venta[labels.length - 1] = Number(t.presupuesto).toFixed(
+            2
+          );
+          ventaTotal += Number(t.presupuesto);
+          break;
       }
+    });
 
-      // Obtener el contexto del canvas
-      let ctx = document.getElementById('transaccionChart').getContext('2d');
+    // Si ya hay un gráfico, destrúyelo para evitar la superposición
+    if (transaccionChart) {
+      transaccionChart.destroy();
+    }
 
-      // Crear el gráfico de barras
-      transaccionChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: 'Presupuesto',
-                  data: presupuestos,
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de las barras
-                  borderColor: 'rgba(75, 192, 192, 1)', // Color del borde de las barras
-                  borderWidth: 1
-              }]
+    // Si ya hay un gráfico, destrúyelo para evitar la superposición
+    if (transaccionPastel) {
+      transaccionPastel.destroy();
+    }
+
+    // Obtener el contexto del canvas
+    let ctx = document.getElementById("transaccionChart").getContext("2d");
+    // Obtener el contexto del canvas
+    let ctx2 = document.getElementById("transaccionPastel").getContext("2d");
+
+    // Crear el gráfico de barras
+    transaccionChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Inversión",
+            data: presupuestos_inversion,
+            backgroundColor: "rgba(75, 192, 192, 0.2)", // Color de las barras de inversión
+            borderColor: "rgba(75, 192, 192, 1)", // Color del borde de las barras de inversión
+            borderWidth: 1,
           },
-          options: {
-              scales: {
-                  y: {
-                      beginAtZero: true // Comienza el eje y en 0
-                  }
-              }
-          }
-      });
+          {
+            label: "Gasto",
+            data: presupuestos_gasto,
+            backgroundColor: "rgba(255, 99, 132, 0.2)", // Color de las barras de gasto
+            borderColor: "rgba(255, 99, 132, 1)", // Color del borde de las barras de gasto
+            borderWidth: 1,
+          },
+          {
+            label: "Venta",
+            data: presupuestos_venta,
+            backgroundColor: "rgba(54, 162, 235, 0.2)", // Color de las barras de venta
+            borderColor: "rgba(54, 162, 235, 1)", // Color del borde de las barras de venta
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true, // Comienza el eje y en 0
+          },
+        },
+      },
+    });
+
+    transaccionPastel = new Chart(ctx2, {
+      type: "doughnut", // O usa 'pie' para un gráfico de pastel completo
+      data: {
+        labels: ["Inversión", "Gasto", "Venta"], // Etiquetas para cada categoría
+        datasets: [
+          {
+            label: "Presupuesto",
+            data: [
+              inversionTotal.toFixed(2),
+              gastoTotal.toFixed(2),
+              ventaTotal.toFixed(2),
+            ], // Los totales de cada categoría
+            backgroundColor: [
+              "rgba(75, 192, 192, 0.2)", // Color de Inversión
+              "rgba(255, 99, 132, 0.2)", // Color de Gasto
+              "rgba(54, 162, 235, 0.2)", // Color de Venta
+            ],
+            borderColor: [
+              "rgba(75, 192, 192, 1)", // Borde de Inversión
+              "rgba(255, 99, 132, 1)", // Borde de Gasto
+              "rgba(54, 162, 235, 1)", // Borde de Venta
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top", // Posición de la leyenda
+          },
+        },
+      },
+    });
   }
 
   function renderTable(data) {
@@ -118,6 +210,7 @@ $(document).ready(function () {
     });
 
     renderPagination(data);
+    renderChart(paginatedItems);
   }
 
   function renderPagination(data) {

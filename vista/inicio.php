@@ -6,6 +6,7 @@ if (!empty($_SESSION['id_usuario'])) {
 ?>
     <!DOCTYPE html>
     <html lang="es">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,15 +17,15 @@ if (!empty($_SESSION['id_usuario'])) {
 
         <script src="https://cdn.tailwindcss.com"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             /* Puedes agregar estilo para que la transición sea más suave */
             #editFormContainer {
                 display: none;
                 margin-top: 20px;
             }
-        </style> 
-        
+        </style>
+
     </head>
 
     <body>
@@ -79,7 +80,7 @@ if (!empty($_SESSION['id_usuario'])) {
                 });
             </script>
 
-            <canvas id="transaccionChart" width="400" height="200"></canvas>
+            <div id="chart-container"></div> <!-- Aquí se agregarán los gráficos -->
 
 
             <div id="lista_transacciones" class="w-full mt-8">

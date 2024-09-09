@@ -163,10 +163,12 @@ if (!empty($_SESSION['id_usuario'])) {
                 </nav>
             </div>
 
-
+            <canvas id="transaccionChart" width="400" height="200"></canvas>
+            <canvas id="transaccionPastel" width="400" height="200"></canvas>
         </div>
 
         <!-- Formulario de edición, inicialmente oculto -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../js/jquery.min.js"></script>
         <script src="../js/datos_proyecto.js"></script>
         <script src="../js/lista_transaccionesxproyecto.js"></script>
