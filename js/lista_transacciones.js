@@ -5,6 +5,7 @@ $(document).ready(function () {
   let itemsPerPage = parseInt($("#itemsPerPage").val());
   var transacciones;
   var filterTransacciones;
+  var imagen;
 
   var Saldo = 0;
   var Ganancia = 0;
@@ -70,10 +71,10 @@ $(document).ready(function () {
       // Crear un canvas dinámico para el gráfico de este proyecto
       let canvasId = `chart-${proyecto_id}`;
       $("#chart-container").append(`
-        <div style="margin-bottom: 20px;">
-          <h3>${proyecto.nombre}</h3>
-          <canvas id="${canvasId}" width="400" height="400"></canvas>
-        </div>
+      <div style="margin-bottom: 10px;">
+        <h2>${proyecto.nombre}</h2>
+        <canvas id="${canvasId}" style="width: 300px; height: 300px;"></canvas>
+      </div>
       `);
 
       // Crear el gráfico circular para este proyecto
@@ -105,6 +106,15 @@ $(document).ready(function () {
         },
         options: {
           responsive: true,
+          layout: {
+            padding: {
+              left: 50,
+              right: 50,
+              top: 10,
+              bottom: 50,
+            },
+          },
+
           plugins: {
             legend: {
               position: "top", // Posición de la leyenda
@@ -119,6 +129,10 @@ $(document).ready(function () {
     let start = (currentPage - 1) * itemsPerPage;
     let end = start + itemsPerPage;
     let paginatedItems = data.slice(start, end);
+    console.log("Items por pagina:", itemsPerPage);
+    console.log("pagina de items:", paginatedItems);
+    console.log("Start:", start);
+    console.log("End", end);
 
     // Limpiar la tabla antes de renderizar
     //$("#detalle_transaccion").empty();
@@ -136,7 +150,6 @@ $(document).ready(function () {
                   <td>${t.descripcion}</td>
               </tr>
           `;
-
       switch (t.tipo_transaccion_id) {
         case 1:
           Saldo += t.presupuesto;
@@ -159,7 +172,7 @@ $(document).ready(function () {
       $("#detalle_transaccion").append(t_template);
     });
     renderPagination(data);
-    renderCharts(data);
+    //renderCharts(imagen);
   }
 
   function renderPagination(data) {
@@ -196,6 +209,32 @@ $(document).ready(function () {
       `);
   }
 
+  // Botón "Previous"
+  $(document).on("click", "#prevPage", function (e) {
+    e.preventDefault();
+    if (currentPage > 1) {
+      currentPage--;
+      renderTable(transacciones);
+    }
+  });
+
+  // Botón "Next"
+  $(document).on("click", "#nextPage", function (e) {
+    e.preventDefault();
+    let totalPages = Math.ceil(transacciones.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderTable(transacciones);
+    }
+  });
+
+  // Manejo de cambio en el menú desplegable de items por página
+  $("#itemsPerPage").change(function () {
+    itemsPerPage = parseInt($(this).val());
+    currentPage = 1;
+    renderTable(transacciones);
+  });
+
   $("#reset").click(function () {
     filterTransacciones = transacciones;
     renderTable(filterTransacciones);
@@ -226,32 +265,6 @@ $(document).ready(function () {
     }
   });
 
-  // Botón "Previous"
-  $(document).on("click", "#prevPage", function (e) {
-    e.preventDefault();
-    if (currentPage > 1) {
-      currentPage--;
-      renderTable(transacciones);
-    }
-  });
-
-  // Botón "Next"
-  $(document).on("click", "#nextPage", function (e) {
-    e.preventDefault();
-    let totalPages = Math.ceil(transacciones.length / itemsPerPage);
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderTable(transacciones);
-    }
-  });
-
-  // Manejo de cambio en el menú desplegable de items por página
-  $("#itemsPerPage").change(function () {
-    itemsPerPage = parseInt($(this).val());
-    currentPage = 1;
-    renderTable(transacciones);
-  });
-
   function listarTransacciones(id) {
     let funcion = "lista_transacciones";
     $.post(
@@ -262,6 +275,7 @@ $(document).ready(function () {
         try {
           let data = JSON.parse(response);
           transacciones = data;
+          imagen = data;
           filterTransacciones = data;
           console.log(data);
           renderTable(data);

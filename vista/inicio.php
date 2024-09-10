@@ -37,7 +37,7 @@ if (!empty($_SESSION['id_usuario'])) {
             <!-- Nombre del proyecto -->
             <h1 class="text text-center">Transacciones</h1><br><br>
 
-            <!-- Insertar transaccion -->
+            <!-- Insertar transaccion 
             <form id="form-transaccion" class="w-full">
                 <div class="w-full grid grid-cols-1 md:grid-cols-5 gap-4">
                     <div class="form-group col">:
@@ -79,6 +79,7 @@ if (!empty($_SESSION['id_usuario'])) {
                     });
                 });
             </script>
+            -->
 
             <div id="chart-container"></div> <!-- Aquí se agregarán los gráficos -->
 
@@ -117,9 +118,9 @@ if (!empty($_SESSION['id_usuario'])) {
                 </div>
                 <nav>
                     <ul class="pagination justify-end flex gap-3 items-start mt-8">
-                        <li class="page-item  bg-white rounded text-sm font-bold" id="prevPage"><a class="page-link bg-white rounded text-sm font-bold" href="#">Previous</a></li>
+                        <li class="page-item  bg-white rounded text-sm font-bold" id="prevPage"><a class="page-link bg-white rounded text-sm font-bold" href="#">Anterior</a></li>
                         <!-- Páginas generadas dinámicamente -->
-                        <li class="page-item" id="nextPage"><a class="page-link bg-white rounded text-sm font-bold" href="#">Next</a></li>
+                        <li class="page-item" id="nextPage"><a class="page-link bg-white rounded text-sm font-bold" href="#">Posterior</a></li>
                     </ul>
                 </nav>
             </div>
