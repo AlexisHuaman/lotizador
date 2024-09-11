@@ -135,7 +135,7 @@ $(document).ready(function () {
     console.log("End", end);
 
     // Limpiar la tabla antes de renderizar
-    //$("#detalle_transaccion").empty();
+    $("#detalle_transaccion").empty();
 
     // Renderizar las filas de la tabla
     let t_template = "";
@@ -148,6 +148,7 @@ $(document).ready(function () {
                   <td>S/${Number(t.presupuesto).toFixed(2)}</td>
                   <td>${t.fecha}</td>
                   <td>${t.descripcion}</td>
+                  <td>${t.p_nombre}</td>
               </tr>
           `;
       switch (t.tipo_transaccion_id) {
@@ -222,6 +223,7 @@ $(document).ready(function () {
   $(document).on("click", "#nextPage", function (e) {
     e.preventDefault();
     let totalPages = Math.ceil(transacciones.length / itemsPerPage);
+    console.log("Items por pagina next:", itemsPerPage);
     if (currentPage < totalPages) {
       currentPage++;
       renderTable(transacciones);
@@ -279,6 +281,7 @@ $(document).ready(function () {
           filterTransacciones = data;
           console.log(data);
           renderTable(data);
+          renderCharts(imagen);
 
           aux_presupuesto = parseFloat(aux_presupuesto.toFixed(2));
           $("#presupuesto_transiciones").html(aux_presupuesto);

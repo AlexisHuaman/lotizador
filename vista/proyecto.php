@@ -46,14 +46,14 @@ if (!empty($_SESSION['id_usuario'])) {
             <!-- Presupuesto del proyecto con etiqueta -->
             <div class="flex items-center w-[300px] justify-between p-4">
                 <h2 class="text-xl font-semibold text-gray-700">Saldo actual</h2>
-                <h2 id="presupuesto_transiciones" class="text-xl font-semibold text-blue-600">Presupuesto Final:</h2>
+                <h2 id="presupuesto_transiciones" class="text-xl font-semibold text-blue-600">Presupuesto Final</h2>
             </div>
 
             <!-- Insertar transaccion -->
             <form id="form-transaccion" class="w-full">
                 <div class="w-full grid grid-cols-1 md:grid-cols-5 gap-4">
-                    <div class="form-group col">:
-                        <label for="t_presupuesto" class="col-form-label">Presupuesto</label>
+                    <div class="form-group col">
+                        <label for="t_presupuesto" class="col-form-label">Monto</label>
                         <input type="number" step="0.01" id="t_presupuesto" class="form-control" required>
                     </div>
 
@@ -68,13 +68,24 @@ if (!empty($_SESSION['id_usuario'])) {
                     </div>
 
                     <div class="form-group col">
-                        <label for="t_tipo" class="col-form-label">Tipo de transacción</label>
+                        <label for="t_tipo" class="col-form-label">Transacción</label>
                         <select id="t_tipo" class="form-control" required>
                             <option value="1">Inversión</option>
                             <option value="2">Gasto</option>
                             <option value="3">Venta</option>
                         </select>
                     </div>
+
+                    <div class="form-group col">
+                        <label for="categoria" class="col-form-label">Categoria</label>
+                        <select id="categoriasContainer" class="flex flex-row text-center">
+                            <!-- Las categorías se agregarán aquí desde JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Cargar el archivo de JavaScript al final del cuerpo -->
+                    <script src="../js/gestion_categorias.js"></script>
+
                     <div class="form-group row">
                         <div class="col-sm-12 text-right">
                             <button type="submit" class="btn btn-block btn-outline-success">Insertar</button>

@@ -41,7 +41,8 @@ class proyecto
             transaccion.descripcion, 
             transaccion.proyecto_id, 
             transaccion.tipo_transaccion_id, 
-            tipo_transaccion.nombre
+            tipo_transaccion.nombre AS t_nombre,
+            categoria.nombre
         FROM proyecto 
         JOIN transaccion ON proyecto.id = transaccion.proyecto_id
         JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 

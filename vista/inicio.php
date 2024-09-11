@@ -109,6 +109,7 @@ if (!empty($_SESSION['id_usuario'])) {
                                 <th>Monto</th>
                                 <th>Fecha</th>
                                 <th>Descripción</th>
+                                <th>Proyecto</th>
                             </tr>
                         </thead>
                         <tbody id="detalle_transaccion">
@@ -124,8 +125,6 @@ if (!empty($_SESSION['id_usuario'])) {
                     </ul>
                 </nav>
             </div>
-
-
         </div>
 
         <!-- Formulario de edición, inicialmente oculto -->
