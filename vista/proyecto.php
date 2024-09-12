@@ -78,7 +78,7 @@ if (!empty($_SESSION['id_usuario'])) {
 
                     <div class="form-group col">
                         <label for="categoria" class="col-form-label">Categoria</label>
-                        <select id="categoriasContainer" class="flex flex-row text-center">
+                        <select id="categoriasContainer" name="categoria" class="flex flex-row text-center">
                             <!-- Las categorías se agregarán aquí desde JavaScript -->
                         </select>
                     </div>
@@ -92,8 +92,8 @@ if (!empty($_SESSION['id_usuario'])) {
                         </div>
                     </div>
                 </div>
-
             </form>
+            
             <div class="filtro">
                 <form action="descargar_reporte.php?id=<?php echo $proyectoId ?>" method="post" accept-charset="utf-8">
                     <div class="row align-items-center flex flex-row text-center">
@@ -158,6 +158,7 @@ if (!empty($_SESSION['id_usuario'])) {
                                 <th>Monto</th>
                                 <th>Fecha</th>
                                 <th>Descripción</th>
+                                <th>Categoria</th>
                             </tr>
                         </thead>
                         <tbody id="detalle_transaccion">

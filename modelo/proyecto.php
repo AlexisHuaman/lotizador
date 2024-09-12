@@ -69,10 +69,12 @@ class proyecto
             transaccion.descripcion, 
             transaccion.proyecto_id, 
             transaccion.tipo_transaccion_id, 
-            tipo_transaccion.nombre
+            tipo_transaccion.nombre,
+            categoria.nombre AS c_nombre
         FROM proyecto 
         JOIN transaccion ON proyecto.id = transaccion.proyecto_id
         JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
+        JOIN categoria ON tipo_transaccion.id = cateogria.tipo_id
         WHERE usuario_id = :id
         GROUP BY transaccion.id
         ORDER BY transaccion.id ASC";

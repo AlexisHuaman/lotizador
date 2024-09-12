@@ -149,6 +149,7 @@ $(document).ready(function () {
                   <td>${t.fecha}</td>
                   <td>${t.descripcion}</td>
                   <td>${t.p_nombre}</td>
+                  <td>${t.c_nombre}</td>
               </tr>
           `;
       switch (t.tipo_transaccion_id) {

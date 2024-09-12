@@ -14,7 +14,7 @@ class transaccion
 
     function categoria_transaccion($tipo)
     {
-        $sql = "SELECT * FROM categoria WHERE tipo_transaccion_id = :tipo";
+        $sql = "SELECT * FROM categoria WHERE tipo_id = :tipo";
         $query = $this->acceso->prepare($sql);
         $query->execute([':tipo' => $tipo]);
         $this->objeto = $query->fetchAll(PDO::FETCH_ASSOC);

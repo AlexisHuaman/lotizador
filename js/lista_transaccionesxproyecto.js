@@ -372,6 +372,8 @@ $(document).ready(function () {
     let descripcion = $("#t_descripcion").val();
     let tipo = $("#t_tipo").val();
     let id_proyecto = $("#id-proyect").attr("data-id"); // Obtener el ID del proyecto
+    let id_categoria = $("#categoriasContainer").val();
+    console.log("id de la categoria: ",id_categoria);
 
     // Enviar la solicitud AJAX para insertar la transacción
     $.post(
