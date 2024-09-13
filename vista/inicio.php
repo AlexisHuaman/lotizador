@@ -110,6 +110,7 @@ if (!empty($_SESSION['id_usuario'])) {
                                 <th>Fecha</th>
                                 <th>Descripción</th>
                                 <th>Proyecto</th>
+                                <th>Categoria</th>
                             </tr>
                         </thead>
                         <tbody id="detalle_transaccion">

@@ -129,11 +129,11 @@ $(document).ready(function () {
     let start = (currentPage - 1) * itemsPerPage;
     let end = start + itemsPerPage;
     let paginatedItems = data.slice(start, end);
-    console.log("Items por pagina:", itemsPerPage);
+    /*console.log("Items por pagina:", itemsPerPage);
     console.log("pagina de items:", paginatedItems);
     console.log("Start:", start);
     console.log("End", end);
-
+    */
     // Limpiar la tabla antes de renderizar
     $("#detalle_transaccion").empty();
 
@@ -145,12 +145,14 @@ $(document).ready(function () {
       t_template = `
               <tr>
                   <td>${index + 1}</td>
-                  <td>${t.nombre}</td>
+                  <td>${t.tipo_nombre}</td>
                   <td>S/${Number(t.presupuesto).toFixed(2)}</td>
                   <td>${t.fecha}</td>
                   <td>${t.descripcion}</td>
                   <td>${t.p_nombre}</td>
-                  <td>${t.c_nombre}</td>
+                  <td>${
+                    t.c_nombre ? t.c_nombre : "Sin categoría"
+                  }</td> <!-- Manejo de NULL -->
               </tr>
           `;
       switch (t.tipo_transaccion_id) {

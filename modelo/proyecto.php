@@ -74,7 +74,7 @@ class proyecto
             FROM proyecto 
             JOIN transaccion ON proyecto.id = transaccion.proyecto_id
             JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
-            JOIN categoria ON tipo_transaccion.id = categoria.tipo_id
+            LEFT JOIN categoria ON tipo_transaccion.id = categoria.tipo_id
             WHERE usuario_id = :id
             ORDER BY transaccion_id ASC";
 
