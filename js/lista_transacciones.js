@@ -141,6 +141,7 @@ $(document).ready(function () {
     let t_template = "";
 
     paginatedItems.forEach((t, index) => {
+      console.log(t.c_nombre);
       t_template = `
               <tr>
                   <td>${index + 1}</td>
