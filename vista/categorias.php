@@ -2,11 +2,8 @@
 session_start();
 if (!empty($_SESSION['id_usuario'])) {
     $current_path = $_SERVER['REQUEST_URI'];
-
     $base_path = '/apibilletera/vista/';
-
     $parts = explode($base_path, $current_path);
-
 ?>
 
     <!DOCTYPE html>
@@ -33,9 +30,38 @@ if (!empty($_SESSION['id_usuario'])) {
                 <select id="t_tipo" class="form-control" required>
                     <option value="1">Inversión</option>
                     <option value="2">Gasto</option>
-                    <option value="3">Venta</option>
+                    <option value="3">Ingreso</option>
                 </select>
             </div>
+
+            <!-- Botón flotante para crear una nueva categoría -->
+            <button id="crearCategoriaBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Crear nueva categoría
+            </button>
+
+            <!-- Formulario para crear nueva categoría -->
+            <div id="nuevaCategoriaForm" class="mt-4 p-4 bg-gray-100 rounded" style="display: none;">
+                <h3 class="text-lg font-semibold">Nueva Categoría</h3>
+
+                <div class="form-group col mt-2">
+                    <label for="nombreCategoria" class="col-form-label">Nombre de la categoría</label>
+                    <input type="text" id="nombreCategoria" class="form-control" placeholder="Nombre" required>
+                </div>
+
+                <div class="form-group col mt-2">
+                    <label for="tipoCategoria" class="col-form-label">Tipo de transacción</label>
+                    <select id="tipoCategoria" class="form-control" required>
+                        <option value="1">Inversión</option>
+                        <option value="2">Gasto</option>
+                        <option value="3">Ingreso</option>
+                    </select>
+                </div>
+
+                <button id="submitCategoria" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-4">
+                    Crear Categoría
+                </button>
+            </div>
+
 
             <div id="categoriasContainer" class="flex flex-col text-center">
                 <!-- El contenedor donde se llenarán las categorías -->

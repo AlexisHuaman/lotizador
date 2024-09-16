@@ -21,6 +21,13 @@ if ($funcion == "categoria_transaccion") {
     }
 }
 
+if ($_POST['funcion'] == 'crear_categoria') {
+    $nombreCategoria = $_POST['nombreCategoria'];
+    $tipoCategoria = $_POST['tipoCategoria'];
+    $transaccion->crear_categoria($nombreCategoria, $tipoCategoria);
+    echo 'Categoria_creada';
+}
+
 if ($funcion == "insertar_transaccion") {
     // Recoger los datos enviados por el formulario
     $presupuesto = $_POST["presupuesto"];

@@ -61,4 +61,42 @@ $(document).ready(function () {
 
   // Llamar la función por primera vez para listar las categorías inicialmente
   listarCategorias();
+
+  // Mostrar el formulario para crear una nueva categoría cuando se presiona el botón
+  $("#crearCategoriaBtn").on("click", function () {
+    $("#nuevaCategoriaForm").toggle(); // Alternar la visibilidad del formulario
+  });
+
+  // Manejar el envío del formulario de nueva categoría
+  $("#submitCategoria").on("click", function () {
+    // Obtener los valores del formulario
+    var nombreCategoria = $("#nombreCategoria").val();
+    var tipoCategoria = $("#tipoCategoria").val();
+
+    if (nombreCategoria === "") {
+      alert("Por favor, ingresa el nombre de la categoría.");
+      return;
+    }
+
+    // Enviar los datos al servidor vía AJAX
+    // Enviar los datos editados al servidor mediante AJAX
+    $.post(
+      "../controlador/TransaccionesController.php",
+      {
+        nombreCategoria: nombreCategoria,
+        tipoCategoria: tipoCategoria,
+        funcion: "crear_categoria", // Define esta función en tu controlador PHP
+      },
+      function (response) {
+        if (response === "Categoria_creada") {
+          // Ocultar el formulario de edición
+          $("#nuevaCategoriaForm").hide();
+          $("#crearCategoriaBtn").show();
+          $("#save_btn").hide();
+        } else {
+          alert("Hubo un error al crear la categoria.");
+        }
+      }
+    );
+  });
 });

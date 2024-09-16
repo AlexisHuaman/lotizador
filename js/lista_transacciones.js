@@ -279,6 +279,7 @@ $(document).ready(function () {
       (response) => {
         console.log("Raw response:", response); // Esto imprimirá la respuesta cruda
         try {
+          console.log(id);
           let data = JSON.parse(response);
           transacciones = data;
           imagen = data;

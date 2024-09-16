@@ -60,23 +60,23 @@ class proyecto
     function listarTransacciones($id_usuario)
     {
         $sql = "SELECT 
-                proyecto.id AS p_id, 
-                proyecto.nombre AS p_nombre, 
-                usuario_id,
-                transaccion.id AS transaccion_id, 
-                transaccion.presupuesto, 
-                transaccion.fecha, 
-                transaccion.descripcion, 
-                transaccion.proyecto_id, 
-                transaccion.tipo_transaccion_id, 
-                tipo_transaccion.nombre AS tipo_nombre,
-                categoria.nombre AS c_nombre
-            FROM proyecto 
-            JOIN transaccion ON proyecto.id = transaccion.proyecto_id
-            JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
-            LEFT JOIN categoria ON tipo_transaccion.id = categoria.tipo_id
-            WHERE usuario_id = :id
-            ORDER BY transaccion_id ASC";
+            proyecto.id AS p_id, 
+            proyecto.nombre AS p_nombre, 
+            usuario_id,
+            transaccion.id AS transaccion_id, 
+            transaccion.presupuesto, 
+            transaccion.fecha, 
+            transaccion.descripcion, 
+            transaccion.proyecto_id, 
+            transaccion.tipo_transaccion_id, 
+            tipo_transaccion.nombre AS tipo_nombre,
+            categoria.nombre AS c_nombre
+        FROM proyecto 
+        JOIN transaccion ON proyecto.id = transaccion.proyecto_id
+        JOIN tipo_transaccion ON transaccion.tipo_transaccion_id = tipo_transaccion.id 
+        JOIN categoria ON transaccion.categoria_id = categoria.id 
+        WHERE usuario_id = :id
+        ORDER BY transaccion_id ASC";
 
         $query = $this->acceso->prepare($sql);
         $query->execute([':id' => $id_usuario]);

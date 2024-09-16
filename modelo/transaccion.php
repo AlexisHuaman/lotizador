@@ -12,9 +12,19 @@ class transaccion
         $this->acceso = $db->pdo;
     }
 
+    function crear_categoria($nombreCategoria, $tipoCategoria)
+    {
+        $sql = "INSERT INTO categoria (nombre, auxiliar_tipo)
+                VALUES (:nombreCategoria, :tipoCategoria)";
+        $query = $this->acceso->prepare($sql);
+        $query->execute([":nombreCategoria" => $nombreCategoria, ":tipoCategoria" => $tipoCategoria]);
+        $this->objeto = $query->fetchAll();
+        return $this->objeto;
+    }
+
     function categoria_transaccion($tipo)
     {
-        $sql = "SELECT * FROM categoria WHERE tipo_id = :tipo";
+        $sql = "SELECT * FROM categoria WHERE auxiliar_tipo = :tipo";
         $query = $this->acceso->prepare($sql);
         $query->execute([':tipo' => $tipo]);
         $this->objeto = $query->fetchAll(PDO::FETCH_ASSOC);
