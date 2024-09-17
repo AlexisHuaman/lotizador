@@ -46,10 +46,15 @@ $(document).ready(function () {
           button.append(img);
           button.append(text);
 
-          // Evento click para redirigir a la categoría seleccionada
+          // Evento click para mostrar el gráfico en un rectángulo a la derecha
           button.on("click", function () {
             let categoriaId = $(this).attr("data-id");
-            window.location.href = `../vista/categoria.php?id=${categoriaId}`;
+
+          // Mostrar el contenedor del gráfico
+            $("#graficoContainer").removeClass("hidden").addClass("flex");
+
+          // Llamar a la función que genera el gráfico con la categoría seleccionada
+            generarGraficoBarras(categoriaId);
           });
 
           // Añadir el botón al contenedor
@@ -58,9 +63,55 @@ $(document).ready(function () {
       }
     );
   }
-
   // Llamar la función por primera vez para listar las categorías inicialmente
   listarCategorias();
+
+  // Función que genera el gráfico de barras
+  function generarGraficoBarras(categoriaId) {
+    // Hacer una llamada AJAX para obtener las transacciones de la categoría seleccionada
+    $.post(
+      "../controlador/TransaccionesController.php",
+      { funcion: "obtenerTransaccionesPorCategoria", categoria_id: categoriaId },
+      (response) => {
+        console.log(response);
+        let transacciones = JSON.parse(response);
+
+        // Crear un arreglo con los presupuestos y fechas
+        let presupuestos = transacciones.map((t) => t.presupuesto);
+        let fechas = transacciones.map((t) => t.fecha);
+
+        // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
+        if (window.myBarChart) {
+          window.myBarChart.destroy();
+        }
+
+        // Crear el gráfico de barras con Chart.js
+        let ctx = document.getElementById("graficoCanvas").getContext("2d");
+        window.myBarChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: fechas, // Usamos las fechas como etiquetas
+            datasets: [
+              {
+                label: "Presupuesto",
+                data: presupuestos, // Los valores de los presupuestos
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    );
+  }
 
   // Mostrar el formulario para crear una nueva categoría cuando se presiona el botón
   $("#crearCategoriaBtn").on("click", function () {
@@ -72,7 +123,8 @@ $(document).ready(function () {
     // Obtener los valores del formulario
     var nombreCategoria = $("#nombreCategoria").val();
     var tipoCategoria = $("#tipoCategoria").val();
-
+    console.log(nombreCategoria);
+    console.log(tipoCategoria);
     if (nombreCategoria === "") {
       alert("Por favor, ingresa el nombre de la categoría.");
       return;
@@ -88,13 +140,15 @@ $(document).ready(function () {
         funcion: "crear_categoria", // Define esta función en tu controlador PHP
       },
       function (response) {
-        if (response === "Categoria_creada") {
+        let data = JSON.parse(response);
+        if (data == "Categoria_creada") {
           // Ocultar el formulario de edición
           $("#nuevaCategoriaForm").hide();
           $("#crearCategoriaBtn").show();
           $("#save_btn").hide();
         } else {
           alert("Hubo un error al crear la categoria.");
+          console.log(data);
         }
       }
     );

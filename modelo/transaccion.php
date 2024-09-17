@@ -30,6 +30,14 @@ class transaccion
         $this->objeto = $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function obtenerTransaccionesPorCategoria($ID)
+    {
+        $sql = "SELECT * FROM transaccion WHERE categoria_id = :tipo";
+        $query = $this->acceso->prepare($sql);
+        $query->execute([':tipo' => $ID]);
+        $this->objeto = $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     function insertar($t_presupuesto, $t_fecha, $t_descripcion, $t_pro, $t_tipo)
     {
         $sql = "INSERT INTO transaccion (presupuesto, fecha, descripcion, proyecto_id, tipo_transaccion_id)

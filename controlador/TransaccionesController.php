@@ -21,11 +21,19 @@ if ($funcion == "categoria_transaccion") {
     }
 }
 
-if ($_POST['funcion'] == 'crear_categoria') {
+if ($funcion == "crear_categoria") {
     $nombreCategoria = $_POST['nombreCategoria'];
     $tipoCategoria = $_POST['tipoCategoria'];
+    $transaccion = new transaccion();
     $transaccion->crear_categoria($nombreCategoria, $tipoCategoria);
-    echo 'Categoria_creada';
+    echo json_encode("Categoria_creada");
+}
+
+if ($funcion == "obtenerTransaccionesPorCategoria") {
+    $categoria_id = $_POST['categoria_id'];
+    $transaccion = new transaccion();
+    $transaccion->obtenerTransaccionesPorCategoria($categoria_id);
+    echo json_encode($transaccion->objeto);
 }
 
 if ($funcion == "insertar_transaccion") {

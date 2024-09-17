@@ -67,6 +67,14 @@ if (!empty($_SESSION['id_usuario'])) {
                 <!-- El contenedor donde se llenarán las categorías -->
             </div>
 
+            <div id="graficoContainer" class="fixed top-0 right-0 bg-gray-100 p-4 hidden">
+            <!-- Aquí se imprimirá el gráfico -->
+            <canvas id="graficoCanvas"></canvas>
+            </div>
+
+            <!-- Cargamos la librería Chart.js -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
             <!-- Scripts -->
             <script src="../js/jquery.min.js"></script>
