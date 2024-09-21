@@ -2,6 +2,10 @@
 session_start();
 $proyectoId = $_GET['id'];
 if (!empty($_SESSION['id_usuario'])) {
+    $current_path = $_SERVER['REQUEST_URI'];
+    $base_path = '/apibilletera/vista/';
+    $parts = explode($base_path, $current_path);
+    echo $parts[1];
     // Obtener el ID del proyecto desde la URL
 
     //$_SESSION['id_proyecto'] = $proyectoId;
@@ -93,7 +97,7 @@ if (!empty($_SESSION['id_usuario'])) {
                     </div>
                 </div>
             </form>
-            
+
             <div class="filtro">
                 <form action="descargar_reporte.php?id=<?php echo $proyectoId ?>" method="post" accept-charset="utf-8">
                     <div class="row align-items-center flex flex-row text-center">

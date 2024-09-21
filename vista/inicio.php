@@ -3,6 +3,9 @@ session_start();
 //$proyectoId = $_GET['id'];
 $proyectoId = $_SESSION['id_usuario'];
 if (!empty($_SESSION['id_usuario'])) {
+    $current_path = $_SERVER['REQUEST_URI'];
+    $base_path = '/apibilletera/vista/';
+    $parts = explode($base_path, $current_path);
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -12,11 +15,9 @@ if (!empty($_SESSION['id_usuario'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/style_proyecto.css">
+
         <link rel="stylesheet" href="../css/style_filtro.css">
-
         <script src="https://cdn.tailwindcss.com"></script>
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             /* Puedes agregar estilo para que la transición sea más suave */
@@ -33,57 +34,9 @@ if (!empty($_SESSION['id_usuario'])) {
         include_once("../components/layout.php")
         ?>
         <div class="w-full">
-
             <!-- Nombre del proyecto -->
             <h1 class="text text-center">Transacciones</h1><br><br>
-
-            <!-- Insertar transaccion 
-            <form id="form-transaccion" class="w-full">
-                <div class="w-full grid grid-cols-1 md:grid-cols-5 gap-4">
-                    <div class="form-group col">:
-                        <label for="t_presupuesto" class="col-form-label">Presupuesto</label>
-                        <input type="number" step="0.01" id="t_presupuesto" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="t_fecha" class="col-form-label">Fecha</label>
-                        <input type="text" id="t_fecha" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="t_descripcion" class="col-form-label">Descripción</label>
-                        <input type="text" id="t_descripcion" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col">
-                        <label for="t_tipo" class="col-form-label">Tipo de transacción</label>
-                        <select id="t_tipo" class="form-control" required>
-                            <option value="1">Inversión</option>
-                            <option value="2">Gasto</option>
-                            <option value="3">Venta</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-12 text-right">
-                            <button type="submit" class="btn btn-block btn-outline-success">Insertar</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-
-            <script>
-                $(document).ready(function() {
-                    $('#filtrar-reporte').click(function() {
-                        $('#editFormContainer').slideDown(); // Muestra el formulario con una animación suave
-                    });
-                });
-            </script>
-            -->
-
             <div id="chart-container"></div> <!-- Aquí se agregarán los gráficos -->
-
-
             <div id="lista_transacciones" class="w-full mt-8">
                 <div class="row mb-3">
                     <div class="flex gap-3">
@@ -100,7 +53,6 @@ if (!empty($_SESSION['id_usuario'])) {
                     </div>
                 </div>
                 <div class="max-h-[300px] overflow-y-auto">
-
                     <table>
                         <thead>
                             <tr>
@@ -127,7 +79,6 @@ if (!empty($_SESSION['id_usuario'])) {
                 </nav>
             </div>
         </div>
-
         <!-- Formulario de edición, inicialmente oculto -->
         <script src="../js/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -135,7 +86,6 @@ if (!empty($_SESSION['id_usuario'])) {
     </body>
 
     </html>
-
 <?php
 } else {
     header('location: ../vista/index.php');
