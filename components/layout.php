@@ -27,7 +27,6 @@ $relativePath = trim($relativePath, '/'); // Elimina cualquier barra adicional
         <a href="perfil.php" class="w-full <?php echo $parts[1] == "perfil.php" ? "bg-white text-blue " : "" ?> rounded p-3">Perfil</a>
     </ul>
     <div class="logout px-8 mt-12">
-
         <a href="../controlador/logout.php" class="inline-block text-white w-full bg-black rounded p-3">Cerrar Sesion</a>
     </div>
 

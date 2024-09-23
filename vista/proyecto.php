@@ -7,16 +7,13 @@ if (!empty($_SESSION['id_usuario'])) {
     $parts = explode($base_path, $current_path);
     echo $parts[1];
     // Obtener el ID del proyecto desde la URL
-
     //$_SESSION['id_proyecto'] = $proyectoId;
     // Usar el ID para cargar la información del proyecto desde la base de datos
     // ...
     // Mostrar la información del proyecto en la página
 ?>
-
     <!DOCTYPE html>
     <html lang="es">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

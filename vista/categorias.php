@@ -5,7 +5,6 @@ if (!empty($_SESSION['id_usuario'])) {
     $base_path = '/apibilletera/vista/';
     $parts = explode($base_path, $current_path);
 ?>
-
     <!DOCTYPE html>
     <html lang="en">
 
@@ -63,24 +62,21 @@ if (!empty($_SESSION['id_usuario'])) {
             </div>
 
 
-            <div id="categoriasContainer" class="flex flex-col text-center">
-                <!-- El contenedor donde se llenarán las categorías -->
+            <div id="categoriasContainerWrapper" class="flex">
+                <div id="categoriasContainer" class="flex flex-col text-center">
+                    <!-- Aquí se llenarán las categorías como botones -->
+                </div>
+
+
+                <!-- Cargamos la librería Chart.js -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+                <!-- Scripts -->
+                <script src="../js/jquery.min.js"></script>
+                <script src="../js/categorias.js"></script>
+
             </div>
-
-            <div id="graficoContainer" class="fixed top-0 right-0 bg-gray-100 p-4 hidden">
-            <!-- Aquí se imprimirá el gráfico -->
-            <canvas id="graficoCanvas"></canvas>
-            </div>
-
-            <!-- Cargamos la librería Chart.js -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-            <!-- Scripts -->
-            <script src="../js/jquery.min.js"></script>
-            <script src="../js/categorias.js"></script>
-
-        </div>
 
 
         </div>

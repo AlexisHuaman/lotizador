@@ -46,19 +46,25 @@ $(document).ready(function () {
           button.append(img);
           button.append(text);
 
-          // Evento click para mostrar el gráfico en un rectángulo a la derecha
+          /*/ Evento click para mostrar el gráfico en un rectángulo a la derecha
           button.on("click", function () {
             let categoriaId = $(this).attr("data-id");
 
-          // Mostrar el contenedor del gráfico
+            // Mostrar el contenedor del gráfico
             $("#graficoContainer").removeClass("hidden").addClass("flex");
 
-          // Llamar a la función que genera el gráfico con la categoría seleccionada
+            // Llamar a la función que genera el gráfico con la categoría seleccionada
             generarGraficoBarras(categoriaId);
           });
 
           // Añadir el botón al contenedor
+          $("#categoriasContainer").append(button);*/
+
+          // Añadir el botón al contenedor
           $("#categoriasContainer").append(button);
+
+          // Crear y ocultar el gráfico para esta categoría
+          generarGraficoBarras(categoria.id, button);
         });
       }
     );
@@ -67,37 +73,61 @@ $(document).ready(function () {
   listarCategorias();
 
   // Función que genera el gráfico de barras
-  function generarGraficoBarras(categoriaId) {
+  function generarGraficoBarras(categoriaId, button) {
+    // Crear un nuevo canvas para el gráfico (oculto al principio)
+    let graficoContainer = $("<div></div>")
+      .addClass("hidden ml-4 flex items-center justify-center")
+      .attr("id", `graficoContainer-${categoriaId}`);
+    let graficoCanvas = $("<canvas></canvas>")
+      .attr("id", `graficoCanvas-${categoriaId}`)
+      .attr("width", "400")
+      .attr("height", "150");
+    graficoContainer.append(graficoCanvas);
+    button.after(graficoContainer); // Añadir el gráfico al lado del botón
+
     // Hacer una llamada AJAX para obtener las transacciones de la categoría seleccionada
     $.post(
       "../controlador/TransaccionesController.php",
-      { funcion: "obtenerTransaccionesPorCategoria", categoria_id: categoriaId },
+      {
+        funcion: "obtenerTransaccionesPorCategoria",
+        categoria_id: categoriaId,
+      },
       (response) => {
         console.log(response);
         let transacciones = JSON.parse(response);
+        let presupuestoxcategoria = 0;
 
-        // Crear un arreglo con los presupuestos y fechas
-        let presupuestos = transacciones.map((t) => t.presupuesto);
-        let fechas = transacciones.map((t) => t.fecha);
+        // Corrección en el forEach: ahora iteramos sobre cada transacción.
+        transacciones.forEach((transaccion) => {
+          console.log(transaccion.presupuesto); // Correcto acceso a cada presupuesto
+          presupuestoxcategoria += parseFloat(transaccion.presupuesto); // Asegúrate de sumar correctamente como número
+        });
+
+        console.log(presupuestoxcategoria);
 
         // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
         if (window.myBarChart) {
           window.myBarChart.destroy();
         }
 
-        // Crear el gráfico de barras con Chart.js
-        let ctx = document.getElementById("graficoCanvas").getContext("2d");
-        window.myBarChart = new Chart(ctx, {
-          type: "bar",
+        // Crear el gráfico de línea horizontal
+        let ctx = document
+          .getElementById(`graficoCanvas-${categoriaId}`)
+          .getContext("2d");
+
+        window[`myBarChart-${categoriaId}`] = new Chart(ctx, {
+          type: "line",
           data: {
-            labels: fechas, // Usamos las fechas como etiquetas
+            labels: ["Categoría " + categoriaId], // Etiqueta única para la categoría
             datasets: [
               {
                 label: "Presupuesto",
-                data: presupuestos, // Los valores de los presupuestos
+                data: [presupuestoxcategoria],
                 backgroundColor: "rgba(75, 192, 192, 0.2)",
                 borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 1,
+                borderWidth: 2,
+                fill: false, // No rellenar debajo de la línea
+                tension: 0, // Línea recta
               },
             ],
           },
@@ -105,9 +135,23 @@ $(document).ready(function () {
             scales: {
               y: {
                 beginAtZero: true,
+                display: false, // Ocultamos el eje Y
+              },
+              x: {
+                display: true, // Mostrar el eje X
+              },
+            },
+            plugins: {
+              legend: {
+                display: false, // Ocultamos la leyenda
               },
             },
           },
+        });
+
+        // Evento click para mostrar el gráfico oculto
+        button.on("click", function () {
+          $(`#graficoContainer-${categoriaId}`).toggleClass("hidden");
         });
       }
     );
