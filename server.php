@@ -1,16 +1,8 @@
 <?php
 // server.php
+$port = getenv('PORT') ?: 8080; // Usa el puerto de la variable de entorno o 8080 por defecto
+$host = '0.0.0.0'; // Acepta conexiones desde cualquier dirección
 
-// Habilitar el manejo de errores
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Definir el puerto si no está definido
-$port = isset($_SERVER['PORT']) ? $_SERVER['PORT'] : 8080;
-
-// Iniciar el servidor embebido
-$host = '0.0.0.0';
-$docRoot = 'htdocs'; // Cambia esto a tu directorio de documentos, si es diferente
-$command = "php -S $host:$port -t $docRoot";
-
-system($command);
+// Iniciar un servidor PHP
+$server = "php -S $host:$port -t vista"; // Cambia 'vista' si es necesario
+system($server);

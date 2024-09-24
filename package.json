@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.php",
   "scripts": {
-    "start": "php server.php" 
+    "start": "php server.php",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
