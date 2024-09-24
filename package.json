@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "server.php",
   "scripts": {
-    "start": "php -S 0.0.0.0:$PORT -t . server.php",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "php server.php" 
   },
   "keywords": [],
   "author": "",
