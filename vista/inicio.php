@@ -2,6 +2,10 @@
 session_start();
 //$proyectoId = $_GET['id'];
 $proyectoId = $_SESSION['id_usuario'];
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+echo "Hola, mundo desde PHP!";
 if (!empty($_SESSION['id_usuario'])) {
     $current_path = $_SERVER['REQUEST_URI'];
     $base_path = '/apibilletera/vista/';
