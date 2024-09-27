@@ -18,13 +18,13 @@ $relativePath = trim($relativePath, '/'); // Elimina cualquier barra adicional
     </div>
     <!-- navegacion -->
     <ul class="w-full flex flex-col gap-2 px-8">
-        <a href="inicio.php" class="w-full <?php echo $parts[1] == "inicio.php" ? "bg-white text-blue " : "" ?> rounded p-3">Inicio</a>
+        <a href="proyecto.php" class="w-full <?php echo $parts[1] == "proyecto.php" ? "bg-white text-blue " : "" ?> rounded p-3">Proyecto</a>
 
-        <a href="categorias.php" class="w-full <?php echo $parts[1] == "categorias.php" ? "bg-white text-blue " : "" ?> rounded p-3">Categorias</a>
+        <a href="asesores.php" class="w-full <?php echo $parts[1] == "asesores.php" ? "bg-white text-blue " : "" ?> rounded p-3">Asesores</a>
 
-        <a href="mis_proyectos.php" class="w-full <?php echo $parts[1] == "mis_proyectos.php" ? "bg-white text-blue " : "" ?> rounded p-3">Mis proyectos</a>
+        <a href="ventas.php" class="w-full <?php echo $parts[1] == "ventas.php" ? "bg-white text-blue " : "" ?> rounded p-3">Ventas</a>
 
-        <a href="perfil.php" class="w-full <?php echo $parts[1] == "perfil.php" ? "bg-white text-blue " : "" ?> rounded p-3">Perfil</a>
+        <a href="separaciones.php" class="w-full <?php echo $parts[1] == "separaciones.php" ? "bg-white text-blue " : "" ?> rounded p-3">Separaciones</a>
     </ul>
     <div class="logout px-8 mt-12">
         <a href="../controlador/logout.php" class="inline-block text-white w-full bg-black rounded p-3">Cerrar Sesion</a>

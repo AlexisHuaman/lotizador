@@ -2,7 +2,7 @@
 class conexion
 {
     private $servidor = "localhost";
-    private $db = "billetera";
+    private $db = "lotizador";
     private $puerto = "3306";
     private $charset = "UTF8";
     private $usuario = "root";

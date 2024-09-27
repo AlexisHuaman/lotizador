@@ -16,20 +16,18 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    echo "Hola, mundo desde PHP!";
     if (!empty($_SESSION['id_usuario'])) {
         header('location: ../controlador/LoginController.php');
     } else {
         session_destroy();
     ?>
-
         <div class="contenedor">
             <div class="logo-container">
                 <img id="imagen_us" src="../imagenes/logo.jpg" alt="Logo de Billetera" class="logo">
             </div>
             <div class="contenido-login">
                 <form action="../controlador/LoginController.php" method="post">
-                    <h2 class="titulo">Billetera</h2>
+                    <h2 class="titulo">Lotizador</h2>
 
                     <div class="input-div correo">
                         <div class="i">
