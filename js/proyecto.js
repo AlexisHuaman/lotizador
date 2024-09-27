@@ -19,10 +19,4 @@ $(document).ready(function () {
       }
     );
   }
-
-  // Obtén el ID del proyecto
-  let id_proyecto = $("#id-proyect").attr("data-id");
-
-  // Llama a la función correctamente
-  detalles_proyecto();
 });

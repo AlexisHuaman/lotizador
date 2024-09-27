@@ -1,0 +1,117 @@
+$(document).ready(function () {
+  let canvas = document.getElementById("mapCanvas");
+  let ctx = canvas.getContext("2d");
+
+  // Cargar la imagen del plano
+  let img = new Image();
+  img.src = "../imagenes/proyecto_plano.png";
+  img.onload = function () {
+    draw(); // Dibujar la imagen del plano una vez cargada
+  };
+
+  // Variables para zoom
+  let scale = 1;
+  let zoomIntensity = 0.1;
+  let originX = 0,
+    originY = 0;
+  let offsetX = 0,
+    offsetY = 0;
+  let isDragging = false;
+  let dragStartX, dragStartY;
+
+  // Variables para el dibujo de figuras
+  let drawing = false;
+  let startX, startY, currentX, currentY;
+  let shapes = []; // Almacena las figuras geométricas dibujadas
+
+  // Redibujar la imagen y las figuras geométricas
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
+    ctx.save();
+
+    // Aplicar zoom y traslación
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Dibujar el plano con zoom
+
+    // Dibujar todas las figuras almacenadas
+    shapes.forEach((shape) => {
+      if (shape.type === "rectangle") {
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2 / scale; // Ajustar el grosor de la línea según el zoom
+        ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+      }
+    });
+
+    ctx.restore();
+  }
+
+  // Zoom con la rueda del mouse
+  canvas.addEventListener("wheel", function (e) {
+    e.preventDefault();
+
+    let mouseX = (e.offsetX - offsetX) / scale;
+    let mouseY = (e.offsetY - offsetY) / scale;
+
+    // Ajustar la escala de acuerdo con la dirección de la rueda
+    let zoom = e.deltaY > 0 ? 1 - zoomIntensity : 1 + zoomIntensity;
+    scale *= zoom;
+
+    // Ajustar la posición de origen para que el zoom mantenga el foco en el mouse
+    offsetX = e.offsetX - mouseX * scale;
+    offsetY = e.offsetY - mouseY * scale;
+
+    draw();
+  });
+
+  // Dibujo de figuras geométricas con clics y arrastre
+  canvas.addEventListener("mousedown", function (e) {
+    if (e.button === 0) {
+      // Izquierdo: Dibujo
+      drawing = true;
+      startX = (e.offsetX - offsetX) / scale;
+      startY = (e.offsetY - offsetY) / scale;
+    } else if (e.button === 1) {
+      // Medio: Arrastre
+      isDragging = true;
+      dragStartX = e.offsetX - offsetX;
+      dragStartY = e.offsetY - offsetY;
+    }
+  });
+
+  canvas.addEventListener("mousemove", function (e) {
+    if (drawing) {
+      currentX = (e.offsetX - offsetX) / scale;
+      currentY = (e.offsetY - offsetY) / scale;
+      draw(); // Redibuja con la figura actual
+      ctx.strokeStyle = "blue";
+      ctx.lineWidth = 2 / scale;
+      ctx.strokeRect(startX, startY, currentX - startX, currentY - startY);
+    } else if (isDragging) {
+      // Mover el canvas mientras se arrastra
+      offsetX = e.offsetX - dragStartX;
+      offsetY = e.offsetY - dragStartY;
+      draw();
+    }
+  });
+
+  canvas.addEventListener("mouseup", function (e) {
+    if (drawing) {
+      // Guardar la figura dibujada
+      shapes.push({
+        type: "rectangle",
+        x: startX,
+        y: startY,
+        width: currentX - startX,
+        height: currentY - startY,
+      });
+      drawing = false;
+    }
+    isDragging = false;
+  });
+
+  // Evitar el menú contextual en el canvas (botón derecho)
+  canvas.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+});
